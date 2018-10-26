@@ -1,0 +1,20 @@
+2018/10/24 05:46:30 [error] 8#0: *1 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 172.17.0.1, server: 172.17.0.1, request: "GET /index.php HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "172.17.0.1"
+2018/10/24 05:46:42 [error] 8#0: *1 FastCGI sent in stderr: "Unable to open primary script: /var/www/website/public/index.php (No such file or directory)" while reading response header from upstream, client: 172.17.0.1, server: 172.17.0.1, request: "GET /index.php HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "172.17.0.1"
+2018/10/24 05:55:16 [error] 8#0: *5 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 172.17.0.1, server: 172.17.0.1, request: "GET /index.php HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "127.0.0.1"
+2018/10/24 05:55:17 [error] 8#0: *5 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 172.17.0.1, server: 172.17.0.1, request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "127.0.0.1"
+2018/10/24 05:55:21 [error] 8#0: *5 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 172.17.0.1, server: 172.17.0.1, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "127.0.0.1"
+2018/10/24 06:13:07 [warn] 1#0: conflicting server name "172.17.0.1" on 0.0.0.0:80, ignored
+2018/10/24 06:13:34 [error] 5#0: *2 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 172.17.0.1, server: 172.17.0.1, request: "GET /index.php HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "172.17.0.1"
+2018/10/24 06:40:54 [warn] 1#0: conflicting server name "172.17.0.1" on 0.0.0.0:80, ignored
+2018/10/24 06:44:40 [warn] 1#0: conflicting server name "172.17.0.1" on 0.0.0.0:80, ignored
+2018/10/24 06:47:22 [warn] 1#0: conflicting server name "172.17.0.1" on 0.0.0.0:80, ignored
+2018/10/24 06:48:56 [warn] 1#0: conflicting server name "172.17.0.1" on 0.0.0.0:80, ignored
+2018/10/24 06:55:44 [emerg] 1#0: unexpected "}" in /etc/nginx/conf.d/default.conf:11
+2018/10/24 06:56:31 [warn] 1#0: conflicting server name "172.17.0.1" on 0.0.0.0:80, ignored
+2018/10/24 07:03:06 [warn] 1#0: conflicting server name "172.17.0.1" on 0.0.0.0:80, ignored
+2018/10/24 07:03:16 [error] 5#0: *1 "/var/www/website/public/index.php" is not found (2: No such file or directory), client: 172.17.0.1, server: 172.17.0.1, request: "GET / HTTP/1.1", host: "172.17.0.1"
+2018/10/24 07:03:45 [warn] 1#0: conflicting server name "172.17.0.1" on 0.0.0.0:80, ignored
+2018/10/24 09:56:45 [warn] 1#0: conflicting server name "172.17.0.1" on 0.0.0.0:80, ignored
+2018/10/24 10:43:04 [warn] 1#0: conflicting server name "172.17.0.1" on 0.0.0.0:80, ignored
+2018/10/24 11:09:37 [warn] 1#0: conflicting server name "172.17.0.1" on 0.0.0.0:80, ignored
+2018/10/24 11:11:11 [warn] 1#0: conflicting server name "172.17.0.1" on 0.0.0.0:80, ignored
