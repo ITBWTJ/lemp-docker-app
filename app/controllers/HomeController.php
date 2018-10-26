@@ -7,17 +7,27 @@
  */
 
 namespace App\Controllers;
+use App\Http\Request;
+use App\Http\Response;
 
 /**\
  * Class HomeController
  */
-class HomeController
+class HomeController extends BaseController
 {
+
+
     /**
      *
      */
     public function index()
     {
-        return 'Yes, it is home page';
+        $body = 'Yes, it is home page';
+
+        return $this->response
+            ->withStatus(200)
+            ->withBody($body)
+            ->withHeader('Content-Type', 'text/html; charset=UTF-8')
+            ->withProtocolVersion($this->request->getProtocolVersion());
     }
 }

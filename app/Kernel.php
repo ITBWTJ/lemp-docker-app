@@ -8,54 +8,31 @@
 
 namespace App;
 
+use App\Http\Handler;
+use App\Http\Request;
+use \FastRoute\Dispatcher\GroupCountBased;
+
 class Kernel
 {
-    private $router;
+    /**
+     * @var
+     */
+    private $handler;
 
     /**
      * Kernel constructor.
-     * @param \FastRoute\Dispatcher\GroupCountBased $router
+     * @param Handler $handler
      */
-    public function __construct(\FastRoute\Dispatcher\GroupCountBased $router)
+    public function __construct(Handler $handler)
     {
-        $this->router = $router;
+        $this->handler = $handler;
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function run()
     {
-
-// Fetch method and URI from somewhere
-        $httpMethod = $_SERVER['REQUEST_METHOD'];
-        $uri = $_SERVER['REQUEST_URI'];
-
-// Strip query string (?foo=bar) and decode URI
-        if (false !== $pos = strpos($uri, '?')) {
-            $uri = substr($uri, 0, $pos);
-        }
-        $uri = rawurldecode($uri);
-
-        $routeInfo = $this->router->dispatch($httpMethod, $uri);
-
-        switch ($routeInfo[0]) {
-            case \FastRoute\Dispatcher::NOT_FOUND:
-                // ... 404 Not Found
-                break;
-            case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-                $allowedMethods = $routeInfo[1];
-                // ... 405 Method Not Allowed
-                break;
-            case \FastRoute\Dispatcher::FOUND:
-                $handler = $routeInfo[1];
-                $vars = $routeInfo[2];
-                $explode = explode('@', $handler);
-                $method = new \ReflectionMethod($explode[0], $explode[1]);
-                echo $method->invoke(new $explode[0], $vars);
-
-                // ... call $handler with $vars
-                break;
-        }
+        $respons = $this->handler->handle();
     }
+
+
+
 }
