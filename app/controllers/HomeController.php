@@ -9,6 +9,8 @@
 namespace App\Controllers;
 use App\Http\Request;
 use App\Http\Response;
+use App\Http\Stream;
+use function GuzzleHttp\Psr7\stream_for;
 
 /**\
  * Class HomeController
@@ -16,18 +18,15 @@ use App\Http\Response;
 class HomeController extends BaseController
 {
 
-
     /**
-     *
+     * @return mixed
      */
     public function index()
     {
-        $body = 'Yes, it is home page';
+        $body = [
+            'text' => 'Yes, it is home page',
+        ];
 
-        return $this->response
-            ->withStatus(200)
-            ->withBody($body)
-            ->withHeader('Content-Type', 'text/html; charset=UTF-8')
-            ->withProtocolVersion($this->request->getProtocolVersion());
+        return $this->json($body);
     }
 }

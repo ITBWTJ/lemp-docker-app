@@ -10,6 +10,7 @@ namespace App\Http;
 
 
 use FastRoute\Dispatcher\GroupCountBased;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -48,36 +49,52 @@ class Handler
     private $response;
 
     /**
-     * Handler constructor.
+     * @var ContainerInterface
      */
-    public function __construct(GroupCountBased $router, Request $request, Response $response)
+    private $container;
+
+    /**
+     * Handler constructor.
+     * @param ContainerInterface $container
+     * @param GroupCountBased $router
+     * @param Request $request
+     * @param Response $response
+     */
+    public function __construct(ContainerInterface $container, GroupCountBased $router, Request $request, Response $response)
     {
         $this->router = $router;
         $this->request = $request;
         $this->response = $response;
+        $this->container = $container;
 
         $this->formattingData();
     }
 
     /**
      * @return ResponseInterface
-     * @throws \ReflectionException
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function handle(): ResponseInterface
     {
-        switch ($this->status) {
-            case \FastRoute\Dispatcher::NOT_FOUND:
-                $this->response = $this->handlerNotFound();
-                break;
-            case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-                $this->response = $this->handlerNotAllowed();
-                // ... 405 Method Not Allowed
-                break;
-            case \FastRoute\Dispatcher::FOUND:
-                $this->response = $this->handlerFound();
-                // ... call $handler with $vars
-                break;
+        try {
+            switch ($this->status) {
+                case \FastRoute\Dispatcher::NOT_FOUND:
+                    $this->response = $this->handlerNotFound();
+                    break;
+                case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+                    $this->response = $this->handlerNotAllowed();
+                    // ... 405 Method Not Allowed
+                    break;
+                case \FastRoute\Dispatcher::FOUND:
+                    $this->response = $this->handlerFound();
+                    // ... call $handler with $vars
+                    break;
+            }
+        } catch (\Exception $e) {
+            $this->response = $this->handlerServerError($e);
         }
+
 
         return $this->response;
     }
@@ -123,14 +140,18 @@ class Handler
     }
 
     /**
+     * @return ResponseInterface
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \ReflectionException
      */
     private function handlerFound(): ResponseInterface
     {
         $explode = explode('@', $this->handler);
+        $controller = $this->container->get($explode[0]);
         $method = new \ReflectionMethod($explode[0], $explode[1]);
 
-        return $method->invoke(new $explode[0], $this->vars);
+        return $method->invoke($controller, $this->vars);
 
     }
 
@@ -143,10 +164,18 @@ class Handler
     }
 
     /**
-     *
+     * @return ResponseInterface
      */
     private function handlerNotFound(): ResponseInterface
     {
         return $this->response->withStatus($this->status);
+    }
+
+    /**
+     * @return ResponseInterface
+     */
+    private function handlerServerError(\Exception $e): ResponseInterface
+    {
+        return $this->response->withStatus(500);
     }
 }

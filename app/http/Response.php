@@ -9,6 +9,9 @@
 namespace App\Http;
 
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
+
 class Response extends \GuzzleHttp\Psr7\Response
 {
     /**
@@ -23,4 +26,17 @@ class Response extends \GuzzleHttp\Psr7\Response
     {
         parent::__construct($status, $headers, $body, $version, $reason);
     }
+
+    /**
+     *
+     */
+    public function send()
+    {
+        foreach ($this->getHeaders() as $header => $value) {
+            header($header . ': ' . $value[0], false, $this->getStatusCode());
+        }
+
+        echo $this->getBody();
+    }
+
 }

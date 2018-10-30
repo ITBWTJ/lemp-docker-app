@@ -24,3 +24,18 @@
 2018/10/26 17:52:34 [alert] 1#0: worker process 8 exited on signal 9
 2018/10/26 18:07:37 [alert] 1#0: worker process 9 exited on signal 9
 2018/10/26 18:07:37 [alert] 1#0: worker process 11 exited on signal 9
+2018/10/26 22:55:10 [alert] 1#0: worker process 5 exited on signal 9
+2018/10/28 13:26:29 [error] 5#0: *1 recv() failed (104: Connection reset by peer) while reading response header from upstream, client: 172.20.0.1, server: 172.17.0.1, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "172.17.0.1"
+2018/10/28 13:26:29 [error] 5#0: *1 recv() failed (104: Connection reset by peer) while reading response header from upstream, client: 172.20.0.1, server: 172.17.0.1, request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "172.17.0.1"
+2018/10/28 17:16:04 [alert] 1#0: worker process 5 exited on signal 9
+2018/10/28 17:16:04 [alert] 1#0: worker process 6 exited on signal 9
+2018/10/28 17:16:04 [alert] 1#0: worker process 7 exited on signal 9
+2018/10/28 17:16:04 [alert] 1#0: worker process 8 exited on signal 9
+2018/10/28 22:55:57 [alert] 1#0: worker process 8 exited on signal 9
+2018/10/28 22:55:57 [alert] 1#0: worker process 7 exited on signal 9
+2018/10/28 22:55:57 [alert] 1#0: worker process 9 exited on signal 9
+2018/10/28 22:55:57 [alert] 1#0: worker process 10 exited on signal 9
+2018/10/29 23:46:12 [alert] 1#0: worker process 7 exited on signal 9
+2018/10/29 23:46:12 [alert] 1#0: worker process 5 exited on signal 9
+2018/10/29 23:46:12 [alert] 1#0: worker process 6 exited on signal 9
+2018/10/29 23:46:12 [alert] 1#0: worker process 8 exited on signal 9

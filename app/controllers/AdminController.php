@@ -8,6 +8,8 @@
 
 namespace App\Controllers;
 
+use function GuzzleHttp\Psr7\stream_for;
+
 /**
  * Class AdminController
  * @package App\Controllers
@@ -15,11 +17,13 @@ namespace App\Controllers;
 class AdminController extends BaseController
 {
     /**
-     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function index()
     {
 
-        return 'Yes, it is admin page';
+        $body = 'Yes, it is admin page';
+
+        return $this->response($body);
     }
 }
