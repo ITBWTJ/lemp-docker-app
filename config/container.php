@@ -21,7 +21,7 @@ return [
     },
     RelayBuilder::class => new RelayBuilder(),
     'request' => function(ContainerInterface $c) {
-        return new \App\Http\Request($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI'], getallheaders(), $c->get('stream'), $_SERVER['SERVER_PROTOCOL']);
+        return new \App\Http\Request($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI'], \getallheaders(), $c->get('stream'), $_SERVER['SERVER_PROTOCOL']);
     },
     'response' => new \App\Http\Response(),
     'stream' => new \App\Http\Stream(),

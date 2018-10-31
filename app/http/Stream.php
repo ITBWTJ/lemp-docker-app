@@ -15,11 +15,13 @@ namespace App\Http;
  */
 class Stream extends \GuzzleHttp\Psr7\Stream
 {
+
     /**
      * Stream constructor.
      */
     public function __construct()
     {
-        parent::__construct(fopen('php://stdin', 'r'));
+
+        parent::__construct(fopen('php://input', 'r+'));
     }
 }

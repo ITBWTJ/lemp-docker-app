@@ -23,10 +23,8 @@ class HomeController extends BaseController
      */
     public function index()
     {
-        $body = [
-            'text' => 'Yes, it is home page',
-        ];
+        $body = 'Yes, it is home page';
 
-        return $this->json($body);
+        return $this->response($body);
     }
 }

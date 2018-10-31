@@ -39,3 +39,14 @@
 2018/10/29 23:46:12 [alert] 1#0: worker process 5 exited on signal 9
 2018/10/29 23:46:12 [alert] 1#0: worker process 6 exited on signal 9
 2018/10/29 23:46:12 [alert] 1#0: worker process 8 exited on signal 9
+2018/10/30 14:47:27 [alert] 1#0: worker process 6 exited on signal 9
+2018/10/30 14:47:27 [alert] 1#0: worker process 5 exited on signal 9
+2018/10/30 14:47:27 [alert] 1#0: worker process 7 exited on signal 9
+2018/10/30 14:47:27 [alert] 1#0: worker process 8 exited on signal 9
+2018/10/30 20:19:01 [error] 5#0: *1 recv() failed (104: Connection reset by peer) while reading response header from upstream, client: 172.20.0.1, server: 172.17.0.1, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "172.17.0.1"
+2018/10/30 20:19:02 [error] 5#0: *1 recv() failed (104: Connection reset by peer) while reading response header from upstream, client: 172.20.0.1, server: 172.17.0.1, request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "172.17.0.1"
+2018/10/30 22:45:21 [alert] 1#0: worker process 5 exited on signal 9
+2018/10/30 22:45:21 [alert] 1#0: worker process 6 exited on signal 9
+2018/10/30 22:45:21 [alert] 1#0: worker process 7 exited on signal 9
+2018/10/30 22:45:21 [alert] 1#0: worker process 8 exited on signal 9
+2018/10/31 11:07:07 [emerg] 1#0: unknown directive "c" in /etc/nginx/conf.d/default.conf:16
