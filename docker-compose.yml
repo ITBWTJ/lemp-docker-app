@@ -16,23 +16,39 @@
                 dockerfile: ./docker/php-fpm/phpfpm.docker
             links:
               - mysql:mysql
+              - postgresql:postgresql
             ports:
               - "9000:9000"
             volumes:
               - ./:/var/www/website
-        mysql:  
+        mysql:
             image: mariadb
             environment:
-                MYSQL_ROOT_PASSWORD: root
+              MYSQL_TCP_PORT: 3306
+              MYSQL_ROOT_PASSWORD: root
 
         phpmyadmin:
-            image: corbinu/docker-phpmyadmin
+            image: phpmyadmin/phpmyadmin
             restart: always
+            depends_on:
+              - mysql
             links:
                 - mysql:mysql
             ports:
                 - 8183:80
             environment:
-                MYSQL_USERNAME: root
-                MYSQL_ROOT_PASSWORD: root
-                MYSQL_PORT_3306_TCP_ADDR: mysql
+              PMA_HOST: mysql
+              PMA_PORT: 3306
+              MYSQL_ROOT_PASSWORD: root
+        postgresql:
+            image: postgres
+            volumes:
+                - ./docker/postgres/data:/var/lib/postgresql/data
+                - ./docker/postgres/logs:/var/log/postgresql
+            ports:
+                - "5432:5432"
+            environment:
+                - POSTGRES_PASSWORD=root
+                - POSTGRES_USER=root
+                - POSTGRES_DB=own.lemp.docker
+                - PGDATA=/var/lib/postgresql/data/pgdata

@@ -11,6 +11,11 @@ namespace App\Http;
 class Request extends \GuzzleHttp\Psr7\Request
 {
     /**
+     * @var array
+     */
+    private $params = [];
+
+    /**
      * Request constructor.
      * @param $method
      * @param $uri
@@ -25,6 +30,60 @@ class Request extends \GuzzleHttp\Psr7\Request
         }
 
         parent::__construct($method, $uri, $headers, $body, $version);
+    }
+
+    /**
+     * @param $name
+     * @return mixed|null
+     */
+    public function __get($name)
+    {
+        if (!empty($this->params[$name])) {
+            return $this->params[$name];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $name
+     * @param $value
+     */
+    public function __set($name, $value)
+    {
+        $this->params[$name] = $value;
+    }
+
+    /**
+     * @param $name
+     * @return mixed|null
+     */
+    public function get($name)
+    {
+        if (!empty($this->params[$name])) {
+            return $this->params[$name];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $name
+     * @param $value
+     */
+    public function set($name, $value)
+    {
+        $this->params[$name] = $value;
+    }
+
+
+    /**
+     * @param $name
+     * @return bool
+     */
+    public function has($name): bool
+    {
+        return array_key_exists($name, $this->params);
     }
 
     /**

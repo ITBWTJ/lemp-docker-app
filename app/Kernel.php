@@ -57,6 +57,7 @@ class Kernel
     {
         $relay = $this->builder->newInstance($this->middlewareContainer->getMiddlewares());
         $response = $relay($this->request, $this->response);
+
         $response->send();
         ob_end_flush();
     }

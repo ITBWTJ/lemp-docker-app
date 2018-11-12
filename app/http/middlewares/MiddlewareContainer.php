@@ -22,21 +22,22 @@ class MiddlewareContainer
      * @var
      */
     private $middlewares = [
+        RequestParseMiddleware::class,
         RouteMiddleware::class,
     ];
 
 
     /**
      * MiddlewareContainer constructor.
-     * @param ContainerInterface $container
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct()
     {
-        $this->container = $container;
+        $this->container = container();
     }
 
     /**
      * @return array|null
+     * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
@@ -49,6 +50,7 @@ class MiddlewareContainer
 
     /**
      * @return array
+     * @throws \Exception
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
@@ -60,7 +62,7 @@ class MiddlewareContainer
             try {
                 $queue[] = $this->container->get($class);
             } catch (\Exception $e) {
-
+                throw $e;
             }
 
         }

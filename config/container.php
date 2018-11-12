@@ -34,12 +34,9 @@ return [
     UserController::class => function(ContainerInterface $c) {
         return new UserController($c->get('request'), $c->get('response'));
     },
-    RouteMiddleware::class => function(ContainerInterface $c) {
-        return new RouteMiddleware($c);
-    },
-    MiddlewareContainer::class => function(ContainerInterface $c) {
-        return new MiddlewareContainer($c);
-    }
+    RouteMiddleware::class => new RouteMiddleware(),
+
+    MiddlewareContainer::class => new MiddlewareContainer(),
 
 
 ];

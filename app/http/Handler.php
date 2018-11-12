@@ -13,6 +13,7 @@ use FastRoute\Dispatcher\GroupCountBased;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use function GuzzleHttp\Psr7\stream_for;
 
 class Handler
 {
@@ -60,12 +61,12 @@ class Handler
      * @param Request $request
      * @param Response $response
      */
-    public function __construct(ContainerInterface $container, GroupCountBased $router, Request $request, Response $response)
+    public function __construct(GroupCountBased $router, Request $request, Response $response)
     {
+        $this->container = container();
         $this->router = $router;
         $this->request = $request;
         $this->response = $response;
-        $this->container = $container;
 
         $this->formattingData();
     }
@@ -84,17 +85,14 @@ class Handler
                     break;
                 case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
                     $this->response = $this->handlerNotAllowed();
-                    // ... 405 Method Not Allowed
                     break;
                 case \FastRoute\Dispatcher::FOUND:
                     $this->response = $this->handlerFound();
-                    // ... call $handler with $vars
                     break;
             }
         } catch (\Exception $e) {
             $this->response = $this->handlerServerError($e);
         }
-
 
         return $this->response;
     }
@@ -147,6 +145,7 @@ class Handler
      */
     private function handlerFound(): ResponseInterface
     {
+
         $explode = explode('@', $this->handler);
         $controller = $this->container->get($explode[0]);
         $method = new \ReflectionMethod($explode[0], $explode[1]);
@@ -160,7 +159,9 @@ class Handler
      */
     private function handlerNotAllowed(): ResponseInterface
     {
-        return $this->response->withStatus($this->status);
+        return $this->response
+            ->withHeader('Content-Type', 'text/html; charset=UTF-8')
+            ->withStatus(405);
     }
 
     /**
@@ -168,7 +169,9 @@ class Handler
      */
     private function handlerNotFound(): ResponseInterface
     {
-        return $this->response->withStatus($this->status);
+        return $this->response
+            ->withHeader('Content-Type', 'text/html; charset=UTF-8')
+            ->withStatus(404);
     }
 
     /**
@@ -176,6 +179,9 @@ class Handler
      */
     private function handlerServerError(\Exception $e): ResponseInterface
     {
-        return $this->response->withStatus(500);
+        return $this->response
+            ->withHeader('Content-Type', 'text/html; charset=UTF-8')
+            ->withBody(stream_for($e->getMessage()))
+            ->withStatus(500);
     }
 }

@@ -28,7 +28,8 @@
             "App\\Controllers\\Api\\": "app/controllers/api/",
             "App\\Http\\Middlewares\\": "app/http/middlewares/",
             "App\\Http\\": "app/http/",
-            "App\\Entities\\": "app/entities/"
+            "App\\Entities\\": "app/entities/",
+            "Src\\Http\\Request\\": "src/http/request/"
         },
         "files": ["app/functions.php"]
     },
