@@ -8,9 +8,12 @@
 
 namespace App\Http\Middlewares;
 
-
 use Psr\Container\ContainerInterface;
 
+/**
+ * Class MiddlewareContainer
+ * @package App\Http\Middlewares
+ */
 class MiddlewareContainer
 {
     /**
@@ -22,8 +25,22 @@ class MiddlewareContainer
      * @var
      */
     private $middlewares = [
-        RequestParseMiddleware::class,
-        RouteMiddleware::class,
+        'start' => [
+            RequestParseMiddleware::class,
+        ],
+        'end' => [
+            ControllerMiddleware::class,
+        ],
+        'web' => [
+//            RouteMiddleware::class,
+        ],
+        'api' => [
+            ApiMiddleware::class,
+        ],
+        'error' => [
+
+        ]
+
     ];
 
 
@@ -41,9 +58,48 @@ class MiddlewareContainer
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getMiddlewares(): ?array
+    public function getStart(): ?array
     {
-        $queue = $this->buildMiddlewares();
+        $queue = $this->buildMiddlewares('start');
+
+        return $queue;
+    }
+
+    /**
+     * @return array|null
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function getEnd(): ?array
+    {
+        $queue = $this->buildMiddlewares('end');
+
+        return $queue;
+    }
+
+    /**
+     * @return array|null
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function getByGroup($key): ?array
+    {
+        $queue = $this->buildMiddlewares($key);
+
+        return $queue;
+    }
+
+    /**
+     * @return array|null
+     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function getError(): ?array
+    {
+        $queue = $this->buildMiddlewares('error');
 
         return $queue;
     }
@@ -54,11 +110,11 @@ class MiddlewareContainer
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    private function buildMiddlewares(): array
+    private function buildMiddlewares($key): array
     {
         $queue = [];
 
-        foreach ($this->middlewares as $class) {
+        foreach ($this->getByKey($key) as $class) {
             try {
                 $queue[] = $this->container->get($class);
             } catch (\Exception $e) {
@@ -68,6 +124,19 @@ class MiddlewareContainer
         }
 
         return $queue;
+    }
+
+    /**
+     * @param $key
+     * @return array|mixed
+     */
+    private function getByKey($key)
+    {
+        if (!empty($this->middlewares[$key])) {
+            return $this->middlewares[$key];
+        }
+
+        return [];
     }
 
 

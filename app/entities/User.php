@@ -8,11 +8,11 @@
 
 namespace App\Entities;
 
+use App\Repositories\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 
-
 /**
- * @Entity
+ * @Entity(repositoryClass="App\Repositories\UserRepository")
  * @Table(name="users")
  */
 class User
@@ -28,6 +28,16 @@ class User
      * @Column(type="string")
      */
     private $name;
+
+    /**
+     * @Column(type="string")
+     */
+    private $email;
+
+    /**
+     * @Column(type="string")
+     */
+    private $password;
 
 
 //    RELATIONSHIPS
@@ -115,5 +125,37 @@ class User
         $this->name = $name;
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password): void
+    {
+        $this->password = $password;
+    }
 
 }

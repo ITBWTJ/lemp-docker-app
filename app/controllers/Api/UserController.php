@@ -10,6 +10,7 @@ namespace App\Controllers\Api;
 
 use App\Entities\User;
 use Doctrine\ORM\EntityManager;
+use Src\Facades\Bcrypt;
 
 class UserController extends ApiBaseController
 {
@@ -28,6 +29,7 @@ class UserController extends ApiBaseController
             $data[] = [
                 'id' => $user->getId(),
                 'name' => $user->getName(),
+                'email' => $user->getEmail(),
             ];
         }
 
@@ -38,19 +40,23 @@ class UserController extends ApiBaseController
     /**
      * @param $id
      * @return \App\Http\Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function show($id)
     {
         $manager = container()->get(EntityManager::class);
-        $user = $manager->getRepository(User::class)->find($id);
+        $qb = $manager->createQueryBuilder()->select(['u.id', 'u.name', 'u.email'])->from(User::class, 'u')->where('u.id = :id')->setParameter('id', $id);
+        $user = $qb->getQuery()->getSingleResult();
 
         if (!empty($user)) {
 
             $data = [
-                'id' => $user->getId(),
-                'name' => $user->getName(),
+                'id' => $user['id'],
+                'name' => $user['name'],
+                'email' => $user['email'],
             ];
 
 
@@ -73,8 +79,16 @@ class UserController extends ApiBaseController
         $manager = container()->get(EntityManager::class);
         $user = new User();
 
-        if ($this->request->has('name') && $this->request->name != false) {
+        if (($this->request->has('name') && $this->request->name != false)
+        && ($this->request->has('email') && $this->request->get('email') != false)
+        && ($this->request->has('password') && strlen($this->request->get('password')) > 7)) {
+
+            $password = Bcrypt::hash($this->request->get('password'));
+
             $user->setName($this->request->get('name'));
+            $user->setPassword($password);
+            $user->setEmail($this->request->get('email'));
+
             $manager->persist($user);
             $manager->flush();
 
@@ -82,7 +96,7 @@ class UserController extends ApiBaseController
         }
 
 
-        return $this->json(['success' => false, 'error' => ['name' => 'required']], 400);
+        return $this->json(['success' => false, 'error' => ['name & email & password' => 'required']], 400);
     }
 
     /**
@@ -97,22 +111,23 @@ class UserController extends ApiBaseController
     {
         $manager = container()->get(EntityManager::class);
         $user = $manager->getRepository(User::class)->find($id);
-        $jsonBody = $this->request->getBody();
-        if (!empty($jsonBody) && !empty($user)) {
-            $body = json_decode($jsonBody, 1);
 
-            if (!empty($body['name'])) {
-                $user->setName($body['name']);
-                $manager->persist($user);
-                $manager->flush();
 
-                return $this->json(['success' => true]);
-            }
-
-            return $this->json(['success' => false, 'error' => ['name' => 'required']], 404);
-
+        if (empty($user)) {
+            return $this->json(['success' => false, 'error' => ['Not Found']], 404);
         }
-        return $this->json(['success' => false], 404);
+
+        if (!empty($this->request->get('name'))) {
+
+            $user->setName($this->request->get('name'));
+            $manager->persist($user);
+            $manager->flush();
+
+            return $this->json(['success' => true]);
+        }
+
+        return $this->json(['success' => false, 'error' => ['name' => 'required']], 404);
+
     }
 
     /**

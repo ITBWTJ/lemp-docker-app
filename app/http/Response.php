@@ -9,8 +9,7 @@
 namespace App\Http;
 
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
+use function GuzzleHttp\Psr7\stream_for;
 
 class Response extends \GuzzleHttp\Psr7\Response
 {
@@ -37,6 +36,18 @@ class Response extends \GuzzleHttp\Psr7\Response
         }
 
         echo $this->getBody();
+    }
+
+    /**
+     * @param string $body
+     * @return $this
+     */
+    public function withStrToBody(string $body): self
+    {
+        $new = clone $this;
+        $new = $new->withBody(stream_for($body));
+
+        return $new;
     }
 
 }

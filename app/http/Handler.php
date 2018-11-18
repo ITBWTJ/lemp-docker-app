@@ -11,6 +11,7 @@ namespace App\Http;
 
 use FastRoute\Dispatcher\GroupCountBased;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use function GuzzleHttp\Psr7\stream_for;
@@ -44,6 +45,7 @@ class Handler
      */
     private $request;
 
+
     /**
      * @var
      */
@@ -54,9 +56,9 @@ class Handler
      */
     private $container;
 
+
     /**
      * Handler constructor.
-     * @param ContainerInterface $container
      * @param GroupCountBased $router
      * @param Request $request
      * @param Response $response
@@ -71,30 +73,61 @@ class Handler
         $this->formattingData();
     }
 
+
     /**
-     * @return ResponseInterface
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @return Request
      */
-    public function handle(): ResponseInterface
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function setRequest(Request $request): void
+    {
+        $this->request = $request;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * @param mixed $response
+     */
+    public function setResponse($response): void
+    {
+        $this->response = $response;
+    }
+
+    /**
+     *
+     */
+    public function handle(): void
     {
         try {
             switch ($this->status) {
                 case \FastRoute\Dispatcher::NOT_FOUND:
-                    $this->response = $this->handlerNotFound();
+                    $this->handlerNotFound();
                     break;
                 case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-                    $this->response = $this->handlerNotAllowed();
+                    $this->handlerNotAllowed();
                     break;
                 case \FastRoute\Dispatcher::FOUND:
-                    $this->response = $this->handlerFound();
+                    $this->handlerFound();
                     break;
             }
         } catch (\Exception $e) {
-            $this->response = $this->handlerServerError($e);
+            $this->handlerServerError($e);
         }
 
-        return $this->response;
+
     }
 
 
@@ -138,48 +171,41 @@ class Handler
     }
 
     /**
-     * @return ResponseInterface
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
-     * @throws \ReflectionException
+     *
      */
-    private function handlerFound(): ResponseInterface
+    private function handlerFound(): void
     {
-
-        $explode = explode('@', $this->handler);
-        $controller = $this->container->get($explode[0]);
-        $method = new \ReflectionMethod($explode[0], $explode[1]);
-
-        return $method->invoke($controller, $this->vars);
-
+        $this->response = $this->response->withStatus(200);
+        $this->request->setHandler($this->handler, $this->vars);
     }
 
     /**
      *
      */
-    private function handlerNotAllowed(): ResponseInterface
+    private function handlerNotAllowed(): void
     {
-        return $this->response
+        $this->response = $this->response
             ->withHeader('Content-Type', 'text/html; charset=UTF-8')
             ->withStatus(405);
     }
 
     /**
-     * @return ResponseInterface
+     *
      */
-    private function handlerNotFound(): ResponseInterface
+    private function handlerNotFound(): void
     {
-        return $this->response
+        $this->response = $this->response
             ->withHeader('Content-Type', 'text/html; charset=UTF-8')
+            ->withStrToBody('Page not found;(')
             ->withStatus(404);
     }
 
     /**
-     * @return ResponseInterface
+     * @param \Exception $e
      */
-    private function handlerServerError(\Exception $e): ResponseInterface
+    private function handlerServerError(\Exception $e): void
     {
-        return $this->response
+        $this->response = $this->response
             ->withHeader('Content-Type', 'text/html; charset=UTF-8')
             ->withBody(stream_for($e->getMessage()))
             ->withStatus(500);

@@ -12,5 +12,13 @@ use App\Controllers\BaseController;
 
 class ApiBaseController extends BaseController
 {
-
+    /**
+     * @return array
+     */
+    public function getMiddlewares(): array
+    {
+        return [
+            'api',
+        ];
+    }
 }

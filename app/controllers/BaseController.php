@@ -21,6 +21,11 @@ class BaseController
     protected $response;
 
     /**
+     * @var array
+     */
+    protected static $middlewares = null;
+
+    /**
      * BaseController constructor.
      * @param Request $request
      * @param Response $response
@@ -68,6 +73,16 @@ class BaseController
             ->withStatus($status)
             ->withHeader('Content-Type', 'application/json;')
             ->withProtocolVersion($this->request->getProtocolVersion());
+    }
+
+    /**
+     *
+     */
+    public function getMiddlewares(): array
+    {
+        return [
+
+        ];
     }
 
 

@@ -5,19 +5,25 @@ use App\Controllers\Api\{UserController};
 use App\Http\Middlewares\{RouteMiddleware, MiddlewareContainer};
 use Psr\Container\ContainerInterface;
 use Relay\RelayBuilder;
+use Src\Http\Middleware\MiddlewareMediator;
+use FastRoute\Dispatcher\GroupCountBased as router;
+use FastRoute\DataGenerator\GroupCountBased;
 
 return [
     'routeParser' => new FastRoute\RouteParser\Std(),
-    'dataGenerator' => new \FastRoute\DataGenerator\GroupCountBased(),
+    'dataGenerator' => new GroupCountBased(),
     'routerCollection' => function (ContainerInterface $c) {
         return new \FastRoute\RouteCollector($c->get('routeParser'), $c->get('dataGenerator'));
     },
     'router' => function (ContainerInterface $c) {
         $collector = $c->get('routerCollection');
-        return new \FastRoute\Dispatcher\GroupCountBased($collector->getData());
+        return new router($collector->getData());
+    },
+    'handler' => function (ContainerInterface $c) {
+        return new \App\Http\Handler($c->get('router'), $c->get('request'), $c->get('response'));
     },
     'kernel' => function (ContainerInterface $c) {
-        return new \App\Kernel($c->get(RelayBuilder::class), $c->get(MiddlewareContainer::class), $c->get('request'), $c->get('response'));
+        return new \App\Kernel($c->get(RelayBuilder::class), $c->get('handler'), $c->get(MiddlewareMediator::class));
     },
     RelayBuilder::class => new RelayBuilder(),
     'request' => function(ContainerInterface $c) {
@@ -34,9 +40,16 @@ return [
     UserController::class => function(ContainerInterface $c) {
         return new UserController($c->get('request'), $c->get('response'));
     },
+    \App\Controllers\Auth\LoginController::class => function(ContainerInterface $c) {
+        return new \App\Controllers\Auth\LoginController($c->get('request'), $c->get('response'));
+    },
     RouteMiddleware::class => new RouteMiddleware(),
 
     MiddlewareContainer::class => new MiddlewareContainer(),
+
+    MiddlewareMediator::class => function (ContainerInterface $c) {
+        return new MiddlewareMediator($c->get(MiddlewareContainer::class));
+    }
 
 
 ];

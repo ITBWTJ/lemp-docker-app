@@ -11,6 +11,17 @@ namespace App\Http;
 class Request extends \GuzzleHttp\Psr7\Request
 {
     /**
+     * @var
+     */
+    private $handler;
+
+    /**
+     * @var
+     */
+    private $args;
+
+
+    /**
      * @var array
      */
     private $params = [];
@@ -31,6 +42,34 @@ class Request extends \GuzzleHttp\Psr7\Request
 
         parent::__construct($method, $uri, $headers, $body, $version);
     }
+
+
+    /**
+     * @return mixed
+     */
+    public function getHandler()
+    {
+        return $this->handler;
+    }
+
+    /**
+     * @param $handler
+     * @param array $args
+     */
+    public function setHandler($handler, $args = []): void
+    {
+        $this->handler = $handler;
+        $this->args = $args;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getArgs()
+    {
+        return $this->args;
+    }
+
 
     /**
      * @param $name

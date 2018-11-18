@@ -33,7 +33,7 @@ class RouteMiddleware implements \Relay\MiddlewareInterface
     {
         $router = container()->get('router');
         $handler = new Handler($router, $request, $response);
-
+        dd($handler);
         return $handler->handle();
     }
 }

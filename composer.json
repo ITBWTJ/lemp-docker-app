@@ -26,10 +26,16 @@
             "App\\": "app/",
             "App\\Controllers\\": "app/controllers/",
             "App\\Controllers\\Api\\": "app/controllers/api/",
+            "App\\Controllers\\Auth\\": "app/controllers/auth/",
             "App\\Http\\Middlewares\\": "app/http/middlewares/",
             "App\\Http\\": "app/http/",
             "App\\Entities\\": "app/entities/",
-            "Src\\Http\\Request\\": "src/http/request/"
+            "App\\Repositories\\": "app/repositories/",
+            "App\\Exceptions\\Controller\\": "app/exceptions/controller/",
+            "Src\\Http\\Request\\": "src/http/request/",
+            "Src\\Http\\Middleware\\": "src/http/middleware/",
+            "Src\\Http\\Controller\\": "src/http/controller/",
+            "Src\\Facades\\": "src/facades/"
         },
         "files": ["app/functions.php"]
     },
