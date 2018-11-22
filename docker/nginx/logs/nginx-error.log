@@ -71,3 +71,20 @@
 2018/11/17 15:48:00 [alert] 1#0: worker process 8 exited on signal 9
 2018/11/17 18:26:09 [alert] 1#0: worker process 6 exited on signal 9
 2018/11/17 18:26:09 [alert] 1#0: worker process 8 exited on signal 9
+2018/11/19 05:47:49 [alert] 1#0: worker process 6 exited on signal 9
+2018/11/19 05:47:49 [alert] 1#0: worker process 7 exited on signal 9
+2018/11/19 05:47:49 [alert] 1#0: worker process 8 exited on signal 9
+2018/11/19 05:47:49 [alert] 1#0: worker process 9 exited on signal 9
+2018/11/19 21:06:57 [alert] 1#0: worker process 7 exited on signal 9
+2018/11/19 21:06:57 [alert] 1#0: worker process 6 exited on signal 9
+2018/11/19 21:06:57 [alert] 1#0: worker process 8 exited on signal 9
+2018/11/19 21:06:57 [alert] 1#0: worker process 9 exited on signal 9
+2018/11/21 20:10:46 [error] 6#0: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.20.0.1, server: 172.17.0.1, request: "GET /api HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "172.17.0.1"
+2018/11/21 20:10:47 [error] 6#0: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.20.0.1, server: 172.17.0.1, request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "172.17.0.1"
+2018/11/21 20:10:55 [error] 6#0: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.20.0.1, server: 172.17.0.1, request: "GET /api/posts HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "172.17.0.1"
+2018/11/21 20:36:41 [error] 6#0: *1 recv() failed (104: Connection reset by peer) while reading response header from upstream, client: 172.20.0.1, server: 172.17.0.1, request: "GET /api/posts HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "172.17.0.1"
+2018/11/21 20:36:42 [error] 6#0: *1 recv() failed (104: Connection reset by peer) while reading response header from upstream, client: 172.20.0.1, server: 172.17.0.1, request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://172.17.0.1:9000", host: "172.17.0.1"
+2018/11/21 22:06:03 [alert] 1#0: worker process 5 exited on signal 9
+2018/11/21 22:06:03 [alert] 1#0: worker process 6 exited on signal 9
+2018/11/21 22:06:03 [alert] 1#0: worker process 7 exited on signal 9
+2018/11/21 22:06:03 [alert] 1#0: worker process 8 exited on signal 9

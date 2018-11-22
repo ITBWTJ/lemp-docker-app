@@ -1,7 +1,8 @@
 <?php
 
-use App\Controllers\{HomeController, AdminController};
-use App\Controllers\Api\{UserController};
+use App\Controllers\{HomeController, AdminController, TestController};
+use App\Controllers\Api\{UserController, PostController};
+use App\Controllers\Auth\{RegistrationController, LoginController};
 use App\Http\Middlewares\{RouteMiddleware, MiddlewareContainer};
 use Psr\Container\ContainerInterface;
 use Relay\RelayBuilder;
@@ -40,8 +41,17 @@ return [
     UserController::class => function(ContainerInterface $c) {
         return new UserController($c->get('request'), $c->get('response'));
     },
-    \App\Controllers\Auth\LoginController::class => function(ContainerInterface $c) {
-        return new \App\Controllers\Auth\LoginController($c->get('request'), $c->get('response'));
+    LoginController::class => function(ContainerInterface $c) {
+        return new LoginController($c->get('request'), $c->get('response'));
+    },
+    RegistrationController::class => function(ContainerInterface $c) {
+        return new RegistrationController($c->get('request'), $c->get('response'));
+    },
+    PostController::class => function(ContainerInterface $c) {
+        return new PostController($c->get('request'), $c->get('response'));
+    },
+    TestController::class => function(ContainerInterface $c) {
+        return new TestController($c->get('request'), $c->get('response'));
     },
     RouteMiddleware::class => new RouteMiddleware(),
 

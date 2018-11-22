@@ -19,7 +19,8 @@
         "middlewares/fast-route": "^1.2",
         "middlewares/request-handler": "^1.4",
         "doctrine/orm": "^2.6",
-        "symfony/yaml": "^4.1"
+        "symfony/yaml": "^4.1",
+        "rakit/validation": "^0.22.3"
     },
     "autoload": {
         "psr-4": {
@@ -35,7 +36,8 @@
             "Src\\Http\\Request\\": "src/http/request/",
             "Src\\Http\\Middleware\\": "src/http/middleware/",
             "Src\\Http\\Controller\\": "src/http/controller/",
-            "Src\\Facades\\": "src/facades/"
+            "Src\\Facades\\": "src/facades/",
+            "Src\\Exceptions\\": "src/exceptions/"
         },
         "files": ["app/functions.php"]
     },

@@ -47,13 +47,13 @@ class UserRepository extends EntityRepository
 
     /**
      * @return mixed
-     * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function first()
     {
+
         return $this->qb->getQuery()
             ->setMaxResults(1)
-            ->getSingleResult();
+            ->getOneOrNullResult();
     }
 }

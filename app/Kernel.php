@@ -83,7 +83,7 @@ class Kernel
         } catch (\Exception $e) {
 
             $response = $this->response->withStatus(500)
-                ->withStrToBody($e->getMessage());
+                ->withStrToBody($e->getMessage() . '</br>' . $e->getTraceAsString());
         }
 
 
@@ -98,6 +98,7 @@ class Kernel
     {
         $this->handler->handle();
         $this->response = $this->handler->getResponse();
+
         $this->request = $this->handler->getRequest();
     }
 

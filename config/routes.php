@@ -7,11 +7,16 @@ $collection->addRoute('GET', '/', 'App\Controllers\HomeController@index');
 $collection->addRoute('GET', '/admin', 'App\Controllers\AdminController@index');
 
 $collection->addGroup('/auth', function (\FastRoute\RouteCollector $c) {
-   $c->addRoute('GET', '/login', 'App\Controllers\Auth\LoginController@loginForm');
    $c->addRoute('POST', '/login', 'App\Controllers\Auth\LoginController@login');
+   $c->addRoute('POST', '/register', 'App\Controllers\Auth\RegistrationController@register');
 });
 
+$collection->addRoute('GET', '/test', 'App\Controllers\TestController@test');
+
+
 $collection->addGroup('/api', function (\FastRoute\RouteCollector $c) {
+
+    // USER RESET API
     $c->addRoute('GET', '/users', 'App\Controllers\Api\UserController@index');
 
     $c->addRoute('GET', '/users/{id:\d+}', 'App\Controllers\Api\UserController@show');
@@ -21,6 +26,17 @@ $collection->addGroup('/api', function (\FastRoute\RouteCollector $c) {
     $c->addRoute('PUT', '/users/{id:\d+}', 'App\Controllers\Api\UserController@update');
 
     $c->addRoute('DELETE', '/users/{id:\d+}', 'App\Controllers\Api\UserController@delete');
+
+    // POST REST API
+    $c->addRoute('GET', '/posts', 'App\Controllers\Api\PostController@index');
+
+    $c->addRoute('GET', '/posts/{id:\d+}', 'App\Controllers\Api\PostController@show');
+
+    $c->addRoute('POST', '/posts', 'App\Controllers\Api\PostController@store');
+
+    $c->addRoute('PUT', '/posts/{id:\d+}', 'App\Controllers\Api\PostController@update');
+
+    $c->addRoute('DELETE', '/posts/{id:\d+}', 'App\Controllers\Api\PostController@delete');
 });
 
 

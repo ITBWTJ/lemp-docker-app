@@ -24,6 +24,8 @@ class LoginController extends BaseController
 
     /**
      * @return Response
+     * @throws \ITBWTJohnnyJWT\Exceptions\NotSetConfigException
+     * @throws \ITBWTJohnnyJWT\Exceptions\TokenException
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
@@ -37,7 +39,7 @@ class LoginController extends BaseController
         $user = $manager->getRepository(User::class)->getByEmail($this->request->get('email'))->first();
 
         if (empty($user)) {
-            return $this->json(['success' => false, 'error' => ["User by email $this->request->get('email') not found"]], 404);
+            return $this->json(['success' => false, 'error' => ["User by email". $this->request->get('email') ." not found"]], 404);
         }
 
         if (!Bcrypt::verify($this->request->get('password'), $user['password'])) {

@@ -10,11 +10,14 @@ namespace Src\Facades;
 
 
 use ITBWTJohnnyJWT\Helpers\AuthConfig;
+use ITBWTJohnnyJWT\Token;
 use ITBWTJohnnyJWT\TokenBuilder;
+use ITBWTJohnnyJWT\TokenReader;
 use ITBWTJohnnyJWT\TokenVerify;
 
 class JWTToken
 {
+
     /**
      * @param array $user
      * @return string
@@ -45,5 +48,17 @@ class JWTToken
         return $verify->setConfig($config)
             ->setToken($token)
             ->verify();
+    }
+
+    /**
+     * @param string $token
+     * @return array|null
+     */
+    static public function getAuthId(string $token): ?array
+    {
+        $reader = new TokenReader();
+        $reader->setToken($token);
+
+        return $reader->get('id');
     }
 }

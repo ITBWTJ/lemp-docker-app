@@ -10,9 +10,8 @@ namespace App\Entities;
 
 /**
  * Class Post
- * @Entity()
+ * @Entity(repositoryClass="App\Repositories\PostRepository")
  * @Table(name="posts")
- * @package App\Entities
  */
 class Post
 {
@@ -51,6 +50,16 @@ class Post
      * @var User
      */
     private $user;
+
+    /**
+     * @return array
+     */
+    public function getRules(): array
+    {
+        return [
+            'message' => 'required|min:6',
+        ];
+    }
 
     /**
      * @return mixed

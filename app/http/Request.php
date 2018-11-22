@@ -115,6 +115,14 @@ class Request extends \GuzzleHttp\Psr7\Request
         $this->params[$name] = $value;
     }
 
+    /**
+     * @return array|null
+     */
+    public function all(): ?array
+    {
+        return $this->params;
+    }
+
 
     /**
      * @param $name
