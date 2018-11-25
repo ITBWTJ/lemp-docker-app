@@ -15,6 +15,7 @@ use App\Http\Response;
 use App\Repositories\PostRepository;
 use Doctrine\ORM\EntityManager;
 use Rakit\Validation\Validator;
+use Src\Exceptions\AuthExceptions;
 use Src\Facades\Auth;
 
 class PostController extends ApiBaseController
@@ -92,14 +93,14 @@ class PostController extends ApiBaseController
             $this->json(['success' => false, 'error' => $validation->errors()], 400);
         }
 
-        $post = [
-            'message' => $this->request->get('message'),
-            'user_id' => Auth::getUserId(),
-        ];
+        $post = new Post();
+        $user = Auth::getUser();
+        $post->setMessage($this->request->get('message'));
+        $post->setUser($user);
+        $this->manager->persist($post);
+        $this->manager->flush();
 
-        $this->postRepository->create($post);
-
-        $this->json(['success' => true]);
+        return $this->json(['success' => true]);
     }
 
     public function update($id)
@@ -135,7 +136,8 @@ class PostController extends ApiBaseController
         $post = $manager->getRepository(Post::class)->find($id);
 
         if (!empty($post)) {
-            $manager->remove($post);
+            $post->setDeletedAt(time());
+            $manager->persist($post);
             $manager->flush();
 
             return $this->json(['success' => true]);

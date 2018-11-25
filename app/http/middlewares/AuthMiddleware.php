@@ -8,6 +8,9 @@
 
 namespace App\Http\Middlewares;
 
+use App\Entities\User;
+use App\Repositories\UserRepository;
+use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Relay\MiddlewareInterface;
@@ -44,9 +47,11 @@ class AuthMiddleware implements MiddlewareInterface
         $id = JWTToken::getAuthId($explode[1]);
 
         try {
-            Auth::setUser(['id' => $id]);
+            $manager = container()->get(EntityManager::class);
+            $user = $manager->getRepository(User::class)->find($id);
+            Auth::setUser($user);
         } catch (AuthExceptions $e) {
-
+            dd($e);
         }
 
 

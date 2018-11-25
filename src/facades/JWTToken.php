@@ -54,10 +54,11 @@ class JWTToken
      * @param string $token
      * @return array|null
      */
-    static public function getAuthId(string $token): ?array
+    static public function getAuthId(string $token): ?int
     {
         $reader = new TokenReader();
         $reader->setToken($token);
+        $reader->read();
 
         return $reader->get('id');
     }

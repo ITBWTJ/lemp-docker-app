@@ -19,22 +19,18 @@ class Auth
      * @param array $user
      * @throws AuthExceptions
      */
-    static public function setUser(array $user): void
+    static public function setUser( $user): void
     {
-        if (empty($user['id'])) {
-            throw new AuthExceptions('User has not id');
-        }
-
         self::$user = $user;
     }
 
     /**
-     * @return int|null
+     * @return mixed
      */
-    static public function getUserId(): ?int
+    static public function getUser()
     {
         if (!empty(self::$user)) {
-            return self::$user['id'];
+            return self::$user;
         }
 
         return null;

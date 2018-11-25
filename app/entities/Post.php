@@ -40,7 +40,7 @@ class Post
     /**
      * @Column(type="datetime")
      */
-    private $deleted_at;
+    private $deleted_at = null;
 
 //    RELATIONSHIPS
 
@@ -50,6 +50,14 @@ class Post
      * @var User
      */
     private $user;
+
+    /**
+     * Post constructor.
+     */
+    public function __construct()
+    {
+        $this->created_at = new \DateTime();
+    }
 
     /**
      * @return array

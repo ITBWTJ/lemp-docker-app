@@ -31,7 +31,7 @@ class PostRepository extends EntityRepository
         $this->qb = $this->_em->createQueryBuilder()
             ->select(['p.id', 'p.message', 'p.user_id', 'p.created_at', 'p.deleted_at'])
             ->from(Post::class, 'p')
-            ->where('p.deleted_at IS NOT NULL');
+            ->where('p.deleted_at IS NULL');
 
         return $this;
     }
