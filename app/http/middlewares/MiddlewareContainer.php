@@ -27,6 +27,7 @@ class MiddlewareContainer
     private $middlewares = [
         'start' => [
             RequestParseMiddleware::class,
+            CacheMiddleware::class,
         ],
         'end' => [
             ControllerMiddleware::class,

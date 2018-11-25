@@ -3,7 +3,7 @@
 use App\Controllers\{HomeController, AdminController, TestController};
 use App\Controllers\Api\{UserController, PostController};
 use App\Controllers\Auth\{RegistrationController, LoginController};
-use App\Http\Middlewares\{RouteMiddleware, MiddlewareContainer};
+use App\Http\Middlewares\{RouteMiddleware, MiddlewareContainer, CacheMiddleware};
 use Psr\Container\ContainerInterface;
 use Relay\RelayBuilder;
 use Src\Http\Middleware\MiddlewareMediator;
@@ -53,13 +53,11 @@ return [
     TestController::class => function(ContainerInterface $c) {
         return new TestController($c->get('request'), $c->get('response'));
     },
-    RouteMiddleware::class => new RouteMiddleware(),
-
-    MiddlewareContainer::class => new MiddlewareContainer(),
-
     MiddlewareMediator::class => function (ContainerInterface $c) {
         return new MiddlewareMediator($c->get(MiddlewareContainer::class));
-    }
-
+    },
+    RouteMiddleware::class => new RouteMiddleware(),
+    MiddlewareContainer::class => new MiddlewareContainer(),
+    CacheMiddleware::class => new CacheMiddleware(),
 
 ];

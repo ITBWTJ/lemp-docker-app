@@ -25,6 +25,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
+            "App\\Cache\\": "app/cache/",
             "App\\Controllers\\": "app/controllers/",
             "App\\Controllers\\Api\\": "app/controllers/api/",
             "App\\Controllers\\Auth\\": "app/controllers/auth/",

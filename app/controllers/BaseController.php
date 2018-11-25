@@ -85,6 +85,25 @@ class BaseController
         ];
     }
 
+    /**
+     * @param string $filepath
+     * @param array ...$data
+     * @return mixed
+     * @throws \Exception
+     */
+    protected function render(string $filepath, ...$data)
+    {
+        $filepath = str_replace('.', '/', $filepath);
+
+        if (file_exists(__ROOT__)) {
+            $file =  __ROOT__ .'/resources/views/' . $filepath . '.php';
+            file_put_contents ($file, $data);
+            include_once ($file);
+        } else {
+            throw new \Exception("View $filepath not found");
+        }
+
+    }
 
 
 
