@@ -29,7 +29,12 @@ class FormDataParser extends RequestParser
      */
     protected function selectBody(): void
     {
-        $this->body = $_POST;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->body = $_POST;
+        } else {
+            parse_str(file_get_contents("php://input"),$post_vars);
+            $this->body = $post_vars;
+        }
     }
 
     /**

@@ -106,3 +106,7 @@
 2018/11/22 19:17:45 [error] 5#0: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.20.0.1, server: 172.17.0.1, request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://172.20.0.8:9001", host: "172.17.0.1"
 2018/11/22 19:24:18 [error] 6#0: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.20.0.1, server: 172.17.0.1, request: "GET / HTTP/1.1", upstream: "fastcgi://172.20.0.5:9001", host: "172.17.0.1"
 2018/11/22 19:24:19 [error] 6#0: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.20.0.1, server: 172.17.0.1, request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://172.20.0.5:9001", host: "172.17.0.1"
+2018/11/25 15:22:27 [alert] 1#0: worker process 7 exited on signal 9
+2018/11/25 15:22:27 [alert] 1#0: worker process 5 exited on signal 9
+2018/11/25 15:22:27 [alert] 1#0: worker process 6 exited on signal 9
+2018/11/25 15:22:27 [alert] 1#0: worker process 8 exited on signal 9

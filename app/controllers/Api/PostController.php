@@ -136,7 +136,7 @@ class PostController extends ApiBaseController
         $post = $manager->getRepository(Post::class)->find($id);
 
         if (!empty($post)) {
-            $post->setDeletedAt(time());
+            $post->setDeletedAt(new \DateTime());
             $manager->persist($post);
             $manager->flush();
 

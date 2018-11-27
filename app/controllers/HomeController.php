@@ -29,7 +29,7 @@ class HomeController extends BaseController
     private $manager;
 
     /**
-     * @var
+     * @var PostRepository
      */
     private $postRep;
 
@@ -56,12 +56,14 @@ class HomeController extends BaseController
 
     /**
      * @return Response
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index()
     {
         $this->postCache = new PostCacheRepository();
         if (!$this->postCache->hasPosts()) {
-            $posts = $this->postRep->getAllPosts()->getResult();
+            $posts = $this->postRep->getPostsWithUsers()->getResult();
             $this->postCache->setPosts($posts);
         } else {
             $posts = $this->postCache->getPosts();

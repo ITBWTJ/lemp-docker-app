@@ -12,6 +12,7 @@
         <?php foreach ($posts as $post): ?>
             <h1>Post # <?= $post['id']; ?></h1>
             <div><?= $post['message']; ?></div>
+            <div>Author: <?= $post['name'] .' '. $post['email']; ?></div>
         <?php endforeach; ?>
     <?php endif; ?>
 </body>

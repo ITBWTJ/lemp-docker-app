@@ -55,12 +55,16 @@ class PostCacheRepository
      */
     public function setPosts(array $posts)
     {
-        $this->cache->set('posts', serialize($posts));
+        $this->cache->set('posts', serialize($posts), 5000);
+        $this->cache->expire('posts', 300);
     }
 
+    /**
+     *
+     */
     public function deletePosts()
     {
-        $this->cache;
+        $this->cache->del('posts');
     }
 
 }
