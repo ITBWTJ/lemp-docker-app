@@ -20,7 +20,8 @@
         "middlewares/request-handler": "^1.4",
         "doctrine/orm": "^2.6",
         "symfony/yaml": "^4.1",
-        "rakit/validation": "^0.22.3"
+        "rakit/validation": "^0.22.3",
+        "robmorgan/phinx": "^0.10.6"
     },
     "autoload": {
         "psr-4": {
