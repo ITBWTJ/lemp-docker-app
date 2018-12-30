@@ -9,6 +9,7 @@ services:
         links:
           - mysql:mysql
           - postgresql:postgresql
+          - mongo:mongo
         ports:
           - "9001:9000"
         volumes:
@@ -28,10 +29,15 @@ services:
         environment:
           MYSQL_TCP_PORT: 3306
           MYSQL_ROOT_PASSWORD: root
+    mongo:
+      image: mongo
+      environment:
+        MONGO_INITDB_ROOT_USERNAME:
+        MONGO_INITDB_ROOT_PASSWORD:
+
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
-        restart: always
         depends_on:
           - mysql
         links:
