@@ -63,7 +63,7 @@ class HomeController extends BaseController
     {
         $this->postCache = new PostCacheRepository();
         if (!$this->postCache->hasPosts()) {
-            $posts = $this->postRep->getPostsWithUsers()->getResult();
+            $posts = $this->postRep->getPostsWithUsers(10)->getResult();
             $this->postCache->setPosts($posts);
         } else {
             $posts = $this->postCache->getPosts();

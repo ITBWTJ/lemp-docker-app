@@ -28,7 +28,7 @@ class UserRepository extends EntityRepository
     public function getByEmail(string $email): self
     {
         $this->qb = $this->_em->createQueryBuilder()
-            ->select(['u.id', 'u.name', 'u.email', 'u.password'])
+            ->select(['u.id', 'u.first_name', 'u.last_name', 'u.email', 'u.password'])
             ->from(User::class, 'u')
             ->where('u.email = :email')
             ->setParameter('email', $email);
