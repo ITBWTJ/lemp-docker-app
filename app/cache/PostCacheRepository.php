@@ -55,8 +55,7 @@ class PostCacheRepository
      */
     public function setPosts(array $posts)
     {
-        $this->cache->set('posts', serialize($posts), 5000);
-        $this->cache->expire('posts', 300);
+        $this->cache->setex('posts', 300, serialize($posts));
     }
 
     /**

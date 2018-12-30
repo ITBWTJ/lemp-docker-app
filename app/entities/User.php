@@ -27,7 +27,12 @@ class User
     /**
      * @Column(type="string")
      */
-    private $name;
+    private $first_name;
+
+    /**
+     * @Column(type="string")
+     */
+    private $last_name;
 
     /**
      * @Column(type="string")
@@ -38,6 +43,21 @@ class User
      * @Column(type="string")
      */
     private $password;
+
+    /**
+     * @Column(type="datetime")
+     */
+    private $created_at;
+
+    /**
+     * @Column(type="datetime")
+     */
+    private $updated_at;
+
+    /**
+     * @Column(type="datetime")
+     */
+    private $deleted_at = null;
 
 
 //    RELATIONSHIPS
@@ -112,17 +132,33 @@ class User
     /**
      * @return mixed
      */
-    public function getName()
+    public function getFirstName()
     {
-        return $this->name;
+        return $this->first_name;
     }
 
     /**
-     * @param mixed $name
+     * @param mixed $first_name
      */
-    public function setName($name): void
+    public function setFirstName($first_name): void
     {
-        $this->name = $name;
+        $this->first_name = $first_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->last_name;
+    }
+
+    /**
+     * @param mixed $last_name
+     */
+    public function setLastName($last_name): void
+    {
+        $this->last_name = $last_name;
     }
 
 
@@ -156,6 +192,55 @@ class User
     public function setPassword($password): void
     {
         $this->password = $password;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param mixed $created_at
+     */
+    public function setCreatedAt($created_at): void
+    {
+        $this->created_at = $created_at;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * @param mixed $updated_at
+     */
+    public function setUpdatedAt($updated_at): void
+    {
+        $this->updated_at = $updated_at;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeletedAt()
+    {
+        return $this->deleted_at;
+    }
+
+    /**
+     * @param mixed $deleted_at
+     */
+    public function setDeletedAt($deleted_at): void
+    {
+        $this->deleted_at = $deleted_at;
     }
 
 }

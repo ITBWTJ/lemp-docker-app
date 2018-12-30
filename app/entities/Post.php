@@ -28,6 +28,11 @@ class Post
     private $message;
 
     /**
+     * @Column(type="string")
+     */
+    private $title;
+
+    /**
      * @Column(type="integer")
      */
     private $user_id;
@@ -36,6 +41,11 @@ class Post
      * @Column(type="datetime")
      */
     private $created_at;
+
+    /**
+     * @Column(type="datetime")
+     */
+    private $updated_at;
 
     /**
      * @Column(type="datetime")
@@ -101,6 +111,23 @@ class Post
         $this->message = $message;
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title): void
+    {
+        $this->title = $title;
+    }
+
     /**
      * @return mixed
      */
@@ -131,6 +158,22 @@ class Post
     public function setCreatedAt($created_at): void
     {
         $this->created_at = $created_at;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * @param mixed $updated_at
+     */
+    public function setUpdatedAt($updated_at): void
+    {
+        $this->updated_at = $updated_at;
     }
 
     /**

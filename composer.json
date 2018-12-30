@@ -21,7 +21,8 @@
         "doctrine/orm": "^2.6",
         "symfony/yaml": "^4.1",
         "rakit/validation": "^0.22.3",
-        "robmorgan/phinx": "^0.10.6"
+        "robmorgan/phinx": "^0.10.6",
+        "fzaninotto/faker": "^1.8"
     },
     "autoload": {
         "psr-4": {

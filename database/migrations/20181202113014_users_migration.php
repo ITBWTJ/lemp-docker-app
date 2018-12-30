@@ -40,7 +40,18 @@ class UsersMigration extends AbstractMigration
             ->addColumn('password', 'string', ['limit' => 60])
             ->addColumn('created_at', 'datetime', ['null' => true])
             ->addColumn('updated_at', 'datetime', ['null' => true])
+            ->addColumn('deleted_at', 'datetime', ['null' => true])
             ->addIndex('email')
+            ->save();
+    }
+
+    /**
+     *
+     */
+    public function down()
+    {
+        $this->table('users')
+            ->drop()
             ->save();
     }
 }
