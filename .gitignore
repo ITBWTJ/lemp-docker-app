@@ -1,7 +1,12 @@
-# Created by .ignore support plugin (hsz.mobi)
-vendor
+.DS_Store
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
+# Editor directories and files
 .idea
-/composer.lock
-/docker/graylog/logs/
-/docker/nginx/logs/
-/docker/postgres/logs/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

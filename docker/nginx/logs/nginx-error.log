@@ -114,3 +114,21 @@
 2018/11/29 21:07:16 [alert] 1#0: worker process 6 exited on signal 9
 2018/11/29 21:07:16 [alert] 1#0: worker process 7 exited on signal 9
 2018/11/29 21:07:16 [alert] 1#0: worker process 8 exited on signal 9
+2019/01/05 16:11:11 [error] 6#0: *1 open() "/var/www/website/public/css/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:11:23 [error] 6#0: *1 open() "/var/www/website/public/css/css/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /css/style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:11:30 [error] 6#0: *1 open() "/var/www/website/public/css/public/css/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /public/css/style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:15:03 [error] 6#0: *1 open() "/var/www/website/public/public/css/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /public/css/style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:15:08 [error] 6#0: *1 open() "/var/www/website/public/public/css/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /public/css/style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:15:09 [error] 6#0: *1 open() "/var/www/website/public/favicon.ico" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /favicon.ico HTTP/1.1", host: "172.17.0.1", referrer: "http://172.17.0.1/public/css/style.css"
+2019/01/05 16:15:13 [error] 6#0: *1 open() "/var/www/website/public/css/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /css/style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:15:17 [error] 6#0: *1 open() "/var/www/website/public/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:15:38 [error] 6#0: *1 open() "/var/www/website/public/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:15:39 [error] 6#0: *1 open() "/var/www/website/public/favicon.ico" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /favicon.ico HTTP/1.1", host: "172.17.0.1", referrer: "http://172.17.0.1/style.css"
+2019/01/05 16:15:58 [error] 6#0: *1 open() "/var/www/website/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:16:02 [error] 6#0: *1 open() "/var/www/website/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:16:03 [error] 6#0: *1 open() "/var/www/website/favicon.ico" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /favicon.ico HTTP/1.1", host: "172.17.0.1", referrer: "http://172.17.0.1/style.css"
+2019/01/05 16:16:11 [error] 6#0: *1 open() "/var/www/website/public/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /public/style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:17:30 [error] 6#0: *1 open() "/var/www/website/public/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /public/style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:17:34 [error] 6#0: *1 open() "/var/www/website/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:17:39 [error] 6#0: *1 open() "/var/www/website/style.css" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /style.css HTTP/1.1", host: "172.17.0.1"
+2019/01/05 16:17:40 [error] 6#0: *1 open() "/var/www/website/favicon.ico" failed (2: No such file or directory), client: 172.18.0.1, server: 172.17.0.1, request: "GET /favicon.ico HTTP/1.1", host: "172.17.0.1", referrer: "http://172.17.0.1/style.css"

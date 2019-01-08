@@ -36,7 +36,7 @@ class MiddlewareContainer
 //            RouteMiddleware::class,
         ],
         'api' => [
-            AuthMiddleware::class,
+//            AuthMiddleware::class,
         ],
         'error' => [
 

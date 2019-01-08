@@ -8,12 +8,11 @@ services:
             dockerfile: ./docker/php-fpm/phpfpm.docker
         links:
           - mysql:mysql
-          - postgresql:postgresql
-          - mongo:mongo
         ports:
           - "9001:9000"
         volumes:
           - ./:/var/www/website
+
     nginx:
         image: tutum/nginx
         ports:
@@ -23,18 +22,13 @@ services:
 
           - ./docker/nginx/logs/nginx-error.log:/var/log/nginx/error.log
           - ./docker/nginx/logs/nginx-access.log:/var/log/nginx/access.log
+          - ./public/:/var/www/website/public
 
     mysql:
         image: mariadb
         environment:
           MYSQL_TCP_PORT: 3306
           MYSQL_ROOT_PASSWORD: root
-    mongo:
-      image: mongo
-      environment:
-        MONGO_INITDB_ROOT_USERNAME:
-        MONGO_INITDB_ROOT_PASSWORD:
-
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -50,15 +44,4 @@ services:
           MYSQL_ROOT_PASSWORD: root
     redis:
         image: redis
-    postgresql:
-        image: postgres
-        volumes:
-            - ./docker/postgres/data:/var/lib/postgresql/data
-            - ./docker/postgres/logs:/var/log/postgresql
-        ports:
-            - "5432:5432"
-        environment:
-            - POSTGRES_PASSWORD=root
-            - POSTGRES_USER=root
-            - POSTGRES_DB=own.lemp.docker
-            - PGDATA=/var/lib/postgresql/data/pgdata
+
