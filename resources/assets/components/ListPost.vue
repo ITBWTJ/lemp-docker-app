@@ -1,34 +1,35 @@
 <template id="post-list">
-  <div class="row">
-    <div class="pull-right">
-      <router-link class="btn btn-xs btn-primary" v-bind:to="{path: '/add-post'}">
-        <span class="glyphicon glyphicon-plus"></span>
-        Add new post
-      </router-link>
-      <br><br>
+  <div class="container">
+    <div class="row">
+      <h3>Posts</h3>
     </div>
-    <table class="table table-bordered">
-      <thead>
-      <tr>
-        <th>№</th>
-        <th>Post Title</th>
-        <th>Post Body</th>
-        <th class="col-md-2">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(post, index) in listPosts">
-        <td>{{ index + 1 }}</td>
-        <td>{{ post.title }}</td>
-        <td>{{ post.message }}</td>
-        <td>
-          <router-link class="btn btn-info btn-xs" v-bind:to="{name: 'ViewPost', params: {id: post.id}}">Show</router-link>
-          <router-link class="btn btn-warning btn-xs" v-bind:to="{name: 'EditPost', params: {id: post.id}}">Edit</router-link>
-          <router-link class="btn btn-danger btn-xs" v-bind:to="{name: 'DeletePost', params: {id: post.id}}">Delete</router-link>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="row">
+      <div class="pull-right">
+        <router-link class="btn btn-xs btn-primary" v-bind:to="{path: '/add-post'}">
+          <span class="glyphicon glyphicon-plus"></span>
+          Add new post
+        </router-link>
+        <br><br>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-1">#</div>
+      <div class="col-2">Post Title</div>
+      <div class="col-6">Post Body</div>
+      <div class="col-3">Actions</div>
+    </div>
+    <div class="row post-row" v-for="(post, index) in listPosts">
+      <div class="col-1">{{ post.id }}</div>
+      <div class="col-2">{{ post.title }}</div>
+      <div class="col-6">{{ post.message }}</div>
+      <div class="col-3">
+        <router-link class="btn btn-info btn-xs" v-bind:to="{name: 'ViewPost', params: {id: post.id}}">Show</router-link>
+        <router-link class="btn btn-warning btn-xs" v-bind:to="{name: 'EditPost', params: {id: post.id}}">Edit</router-link>
+        <router-link class="btn btn-danger btn-xs" v-bind:to="{name: 'DeletePost', params: {id: post.id}}">Delete</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -38,8 +39,7 @@
       return {posts: []};
     },
     created: function () {
-      let url = 'http://172.17.0.1/api/posts';
-      Axios.get(url).then((response) => {
+      Axios.get('/api/posts').then((response) => {
         this.posts = response.data.data;
       });
     },
@@ -52,3 +52,11 @@
     }
   }
 </script>
+<style>
+  .post-row {
+    margin: 20px 0;
+  }
+  .row h3 {
+    margin: 30px auto;
+  }
+</style>

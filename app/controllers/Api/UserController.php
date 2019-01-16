@@ -28,7 +28,8 @@ class UserController extends ApiBaseController
         foreach ($users as $user) {
             $data[] = [
                 'id' => $user->getId(),
-                'name' => $user->getName(),
+                'first_name' => $user->getFirstName(),
+                'last_name' => $user->getLastName(),
                 'email' => $user->getEmail(),
             ];
         }

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueAxios from 'vue-axios';
 import Axios from 'axios';
 import VueRouter from 'vue-router';
+import Vuex from 'vuex';
 
 window.Vue = Vue;
 
@@ -29,7 +30,9 @@ const Deletepost = Vue.component('DeletePost', require('./components/DeletePost.
 const Viewpost = Vue.component('ViewPost', require('./components/ViewPost.vue').default);
 
 // registering Modules
-Vue.use(VueRouter,VueAxios, Axios);
+Vue.use(VueRouter,VueAxios, Axios, Vuex);
+
+Axios.defaults.baseURL = 'http://172.17.0.1';
 
 const routes = [
   {
@@ -49,7 +52,7 @@ const routes = [
   },
   {
     name: 'DeletePost',
-    path: '/post-delete',
+    path: '/post-delete/:id',
     component: Deletepost
   },
   {
@@ -62,6 +65,7 @@ const routes = [
 const router = new VueRouter({ mode: 'history', routes: routes});
 
 new Vue({
+
   router,
   render: h => h(App)
 }).$mount('#app');

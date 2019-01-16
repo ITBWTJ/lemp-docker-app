@@ -76,6 +76,8 @@ class Post
     {
         return [
             'message' => 'required|min:6',
+            'title' => 'required|min:6',
+            'user_id' => 'required',
         ];
     }
 

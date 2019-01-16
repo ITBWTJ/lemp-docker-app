@@ -1,11 +1,18 @@
 <template id="view-post">
   <div class="container">
-    <h3>{{ post.title }}</h3>
-    <div>
-      {{ post.message }}
+    <div class="row">
+      <div>
+        <h3>{{ post.title }}</h3>
+      </div>
+      <div class="post-message">
+        {{ post.message }}
+      </div>
     </div>
-    <span class="glyphicon glyphicon-arrow-left"></span>
-    <router-link v-bind:to="{ name: 'ListPost' }">Back to list</router-link>
+    <div>
+      <span class="glyphicon glyphicon-arrow-left"></span>
+      <router-link v-bind:to="{ name: 'ListPost' }">Back to list</router-link>
+    </div>
+
   </div>
 </template>
 

@@ -13,19 +13,21 @@
 <script>
   export default {
     data: function () {
-      return {post: {title:'', body: ''}}
+      return {post: {id: '', title:'', body: ''}}
     },
     created: function () {
-      const url = '/post/' + this.$route.params.id;
+      const url = '/api/posts/' + this.$route.params.id;
       Axios.get(url).then((response) => {
         this.post = response.data.data;
       });
     },
     methods: {
       deletePost: function () {
-        const url = '/post/' + this.$route.params.id;
+        const url = '/api/posts/' + this.$route.params.id;
         Axios.delete(url).then((response) => {
-          this.$router.push({name: 'ListPost'});
+          if (response.data.success) {
+            this.$router.push({name: 'ListPost'});
+          }
         });
       }
     }

@@ -10,6 +10,7 @@ namespace App\Controllers\Api;
 
 use App\Controllers\BaseController;
 use App\Entities\Post;
+use App\Entities\User;
 use App\Http\Request;
 use App\Http\Response;
 use App\Repositories\PostRepository;
@@ -60,13 +61,14 @@ class PostController extends ApiBaseController
     public function show($id)
     {
         $manager = container()->get(EntityManager::class);
-        $qb = $manager->createQueryBuilder()->select(['p.id', 'p.message', 'p.user_id', 'p.created_at'])->from(Post::class, 'p')->where('p.id = :id')->setParameter('id', $id);
+        $qb = $manager->createQueryBuilder()->select(['p.id', 'p.message', 'p.title', 'p.user_id', 'p.created_at'])->from(Post::class, 'p')->where('p.id = :id')->setParameter('id', $id);
         $post = $qb->getQuery()->getSingleResult();
 
         if (!empty($post)) {
 
             $data = [
                 'id' => $post['id'],
+                'title' => $post['title'],
                 'message' => $post['message'],
                 'user_id' => $post['user_id'],
                 'created_at' => $post['created_at'],
@@ -94,8 +96,14 @@ class PostController extends ApiBaseController
         }
 
         $post = new Post();
-        $user = Auth::getUser();
+        $manager = container()->get(EntityManager::class);
+        $user = $manager->getRepository(User::class)->find($this->request->get('user_id'));
+
+        if (empty($user)) {
+            return $this->json(['success' => false, 'error' => ['user_id' => ['User not Found']]], 400);
+        }
         $post->setMessage($this->request->get('message'));
+        $post->setTitle($this->request->get('title'));
         $post->setUser($user);
         $this->manager->persist($post);
         $this->manager->flush();
@@ -103,14 +111,21 @@ class PostController extends ApiBaseController
         return $this->json(['success' => true]);
     }
 
+    /**
+     * @param $id
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function update($id)
     {
         $validator = new Validator();
         $validation = $validator->make($this->request->all(), (new Post())->getRules());
         $validation->validate();
 
+
         if ($validation->fails()) {
-            $this->json(['success' => false, 'error' => $validation->errors()], 400);
+            return $this->json(['success' => false, 'error' => $validation->errors()->toArray()], 400);
         }
 
         $manager = container()->get(EntityManager::class);
@@ -118,11 +133,19 @@ class PostController extends ApiBaseController
 
 
         if (empty($post)) {
-            return $this->json(['success' => false, 'error' => ['Not Found']], 404);
+            return $this->json(['success' => false, 'error' => ['Post not Found']], 400);
+        }
+
+        $user = $manager->getRepository(User::class)->find($this->request->get('user_id'));
+
+        if (empty($user)) {
+            return $this->json(['success' => false, 'error' => ['user_id' => ['User not Found']]], 400);
         }
 
 
+        $post->setUser($user);
         $post->setMessage($this->request->get('message'));
+        $post->setTitle($this->request->get('title'));
         $manager->persist($post);
         $manager->flush();
 

@@ -194,10 +194,19 @@ class Handler
      */
     private function handlerNotFound(): void
     {
-        $this->response = $this->response
-            ->withHeader('Content-Type', 'text/html; charset=UTF-8')
-            ->withStrToBody('Page not found;(')
-            ->withStatus(404);
+        if (!$this->isApiRoute()) {
+            $this->setDefaultApiRoute();
+
+            $this->response = $this->response->withStatus(200);
+            $this->request->setHandler($this->handler, $this->vars);
+        } else {
+            $this->response = $this->response
+                ->withHeader('Content-Type', 'text/html; charset=UTF-8')
+                ->withStrToBody('Page not found;(')
+                ->withStatus(404);
+        }
+
+
     }
 
     /**
@@ -209,5 +218,20 @@ class Handler
             ->withHeader('Content-Type', 'text/html; charset=UTF-8')
             ->withBody(stream_for($e->getMessage()))
             ->withStatus(500);
+    }
+
+    private function setDefaultApiRoute(): void
+    {
+        $routeInfo = $this->router->dispatch('GET', '/');
+        $this->status = $routeInfo[0];
+        $this->handler = $routeInfo[1];
+        $this->vars = $routeInfo[2];
+    }
+
+    private function isApiRoute(): bool
+    {
+        $uri = $this->getUri();
+
+        return preg_match('/api/', $uri);
     }
 }
