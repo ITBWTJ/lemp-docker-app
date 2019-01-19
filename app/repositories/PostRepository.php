@@ -26,6 +26,8 @@ class PostRepository extends EntityRepository
      */
     private $q;
 
+    const PER_PAGE = 4;
+
     /**
      * @return PostRepository
      */
@@ -39,6 +41,52 @@ class PostRepository extends EntityRepository
 
         return $this;
     }
+
+    /**
+     * @param int $currentPage
+     * @param int $perPage
+     * @return PostRepository
+     */
+    public function pagination(?int $currentPage, ?int $perPage): self
+    {
+        $perPage = empty($perPage) ? self::PER_PAGE : abs($perPage);
+        $maxResult = $currentPage > 0 ? ($currentPage - 1) * $perPage : 0;
+
+        $this->q = $this->_em->createQueryBuilder()
+            ->select(['p.id', 'p.title', 'p.message', 'p.user_id', 'p.created_at', 'p.deleted_at'])
+            ->from(Post::class, 'p')
+            ->where('p.deleted_at IS NULL')
+            ->setFirstResult($maxResult)
+            ->setMaxResults(abs($perPage))
+            ->getQuery();
+
+        return $this;
+    }
+
+    /**
+     * @return PostRepository
+     */
+    public function findTotal(): self
+    {
+        $this->q = $this->_em->createQueryBuilder()
+            ->select('count(p.id)')
+            ->from(Post::class, 'p')
+            ->where('p.deleted_at IS NULL')
+            ->getQuery();
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getTotal(): int
+    {
+        return $this->q->getSingleResult()[1];
+    }
+
 
     /**
      * @param array $post

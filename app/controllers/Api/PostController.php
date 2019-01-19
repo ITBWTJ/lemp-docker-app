@@ -48,14 +48,29 @@ class PostController extends ApiBaseController
     }
 
     /**
-     * @return mixed
+     * @return Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function index()
     {
-        $posts = $this->postRepository->getAllPosts()->getResult();
+        $posts = $this->postRepository
+            ->pagination($this->request->get('currentPage'), $this->request->get('perPage'))
+            ->getResult();
+
+        $total = $this->postRepository
+            ->findTotal()
+            ->getTotal();
+
+        $result = [
+            'items' => $posts,
+            'currentPage' => (int)$this->request->get('currentPage') ?? 1,
+            'perPage' => (int)$this->request->get('perPage') ?? PostRepository::PER_PAGE,
+            'total' => $total,
+        ];
 
 
-        return $this->json(['success' => true, 'data' => $posts]);
+        return $this->json(['success' => true, 'data' => $result]);
     }
 
     public function show($id)

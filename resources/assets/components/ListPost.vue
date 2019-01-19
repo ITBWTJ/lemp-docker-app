@@ -30,18 +30,23 @@
         <router-link class="btn btn-danger btn-xs" v-bind:to="{name: 'DeletePost', params: {id: post.id}}">Delete</router-link>
       </div>
     </div>
+    <pagination :current="currentPage" @page-changed="getPosts" :perPage="perPage" :total="total"></pagination>
   </div>
 </template>
 
 <script>
+  import Pagination from './Pagination';
+
   export default {
     data() {
-      return {posts: []};
+      return {posts: [],
+        total: 0,
+        perPage: 3,
+        currentPage: 1
+      };
     },
     created: function () {
-      Axios.get('/api/posts').then((response) => {
-        this.posts = response.data.data;
-      });
+      this.getPosts();
     },
     computed: {
       listPosts: function () {
@@ -49,6 +54,22 @@
           return this.posts;
         }
       }
+    },
+    methods: {
+      getPosts: function (currentPage) {
+        this.currentPage = currentPage;
+        const options = {
+          perPage: this.perPage,
+          currentPage: this.currentPage
+        };
+        Axios.get('/api/posts', {params: options}).then((response) => {
+          this.posts = response.data.data.items;
+          this.total = response.data.data.total;
+        });
+      }
+    },
+    components: {
+      Pagination
     }
   }
 </script>

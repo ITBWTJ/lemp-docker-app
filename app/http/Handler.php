@@ -138,8 +138,17 @@ class Handler
     {
         $method = $this->getMethod();
         $uri = $this->getUri();
+        $uri = $this->clearUrl($uri);
 
         return $this->router->dispatch($method, $uri);
+    }
+
+    private function clearUrl(string $url): string
+    {
+        $position = strpos($url, '?');
+
+        return $position ? substr($url, 0, $position) : $url;
+
     }
 
     /**
