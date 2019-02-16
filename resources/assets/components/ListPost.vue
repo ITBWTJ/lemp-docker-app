@@ -1,14 +1,11 @@
 <template id="post-list">
-  <div class="container">
+  <v-container>
     <div class="row">
       <h3>Posts</h3>
     </div>
     <div class="row">
       <div class="pull-right">
-        <router-link class="btn btn-xs btn-primary" v-bind:to="{path: '/add-post'}">
-          <span class="glyphicon glyphicon-plus"></span>
-          Add new post
-        </router-link>
+        <v-btn :to="{path: '/add-post'}" color="info" >Add new post</v-btn>
         <br><br>
       </div>
     </div>
@@ -25,13 +22,14 @@
       <div class="col-2">{{ post.title }}</div>
       <div class="col-6">{{ post.message }}</div>
       <div class="col-3">
-        <router-link class="btn btn-info btn-xs" v-bind:to="{name: 'ViewPost', params: {id: post.id}}">Show</router-link>
-        <router-link class="btn btn-warning btn-xs" v-bind:to="{name: 'EditPost', params: {id: post.id}}">Edit</router-link>
-        <router-link class="btn btn-danger btn-xs" v-bind:to="{name: 'DeletePost', params: {id: post.id}}">Delete</router-link>
+        <v-btn :to="{name: 'ViewPost', params: {id: post.id}}" color="info" small>Show</v-btn>
+        <v-btn :to="{name: 'EditPost', params: {id: post.id}}" color="warning" small>Edit</v-btn>
+        <v-btn :to="{name: 'DeletePost', params: {id: post.id}}"  color="error" small>Delete</v-btn>
       </div>
     </div>
-    <pagination :current="currentPage" @page-changed="getPosts" :perPage="perPage" :total="total"></pagination>
-  </div>
+    <!--<pagination :current="currentPage" @page-changed="getPosts" :perPage="perPage" :total="total"></pagination>-->
+    <v-pagination  :length="totalPage" v-model="currentPage" :total-visible="5" @input="getPosts" :value="1"></v-pagination>
+  </v-container>
 </template>
 
 <script>
@@ -53,7 +51,10 @@
         if (this.posts.length) {
           return this.posts;
         }
-      }
+      },
+      totalPage: function () {
+        return Math.ceil(this.total / this.perPage);
+      },
     },
     methods: {
       getPosts: function (currentPage) {

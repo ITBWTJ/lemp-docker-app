@@ -1,5 +1,6 @@
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
   entry: './resources/assets/main.js',
@@ -53,8 +54,13 @@ module.exports = {
   performance: {
     hints: false
   },
+  plugins: [],
   devtool: '#eval-source-map'
 }
+
+// module.exports.plugins.push(
+//     new VuetifyLoaderPlugin()
+// )
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'

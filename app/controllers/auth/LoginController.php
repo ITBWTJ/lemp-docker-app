@@ -15,6 +15,7 @@ use App\Http\Request;
 use App\Http\Response;
 use App\Repositories\UserRepository;
 use Doctrine\ORM\EntityManager;
+use Rakit\Validation\Validator;
 use Src\Facades\Bcrypt;
 use Src\Facades\JWTToken;
 
@@ -31,19 +32,23 @@ class LoginController extends BaseController
      */
     public function login()
     {
-        if (!$this->request->has('password') || !$this->request->has('email')) {
-            return $this->json(['success' => false, 'error' => ['Email & password required']]);
+        $validator = new Validator();
+        $validation = $validator->make($this->request->all(), ['email' => 'required|email', 'password' => 'required|min:8|max:60']);
+        $validation->validate();
+
+        if ($validation->fails()) {
+            return $this->json(['success' => false, 'error' => $validation->errors()->all()], 400);
         }
 
         $manager = container()->get(EntityManager::class);
         $user = $manager->getRepository(User::class)->getByEmail($this->request->get('email'))->first();
 
         if (empty($user)) {
-            return $this->json(['success' => false, 'error' => ["User by email". $this->request->get('email') ." not found"]], 404);
+            return $this->json(['success' => false, 'error' => ["User by email". $this->request->get('email') ." not found"]], 400);
         }
 
         if (!Bcrypt::verify($this->request->get('password'), $user['password'])) {
-            return $this->json(['success' => false, 'error' => ["Password wrong"]], 401);
+            return $this->json(['success' => false, 'error' => ["Password wrong"]], 400);
         }
 
 

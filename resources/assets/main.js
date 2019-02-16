@@ -1,71 +1,30 @@
 import Vue from 'vue';
 import VueAxios from 'vue-axios';
 import Axios from 'axios';
-import VueRouter from 'vue-router';
-import Vuex from 'vuex';
+import './plugins/vuetify';
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css'
+import router from './routes'
+import store from './store';
 
 window.Vue = Vue;
-
-window.VueRouter = VueRouter;
 
 window.VueAxios = VueAxios;
 
 window.Axios = Axios;
 
+// registering Modules
+Vue.use(Vuetify, VueAxios, Axios);
+
+
 import App from './components/App.vue';
 
-// show the list post templates
-const Listpost = Vue.component('ListPost', require('./components/ListPost.vue').default);
 
-// add post template
-const Addpost = Vue.component('AddPost', require('./components/AddPost.vue').default);
-
-// edite post template
-const Editpost = Vue.component('EditPost', require('./components/EditPost.vue').default);
-
-// delete post template
-const Deletepost = Vue.component('DeletePost', require('./components/DeletePost.vue').default);
-
-// view single post template
-const Viewpost = Vue.component('ViewPost', require('./components/ViewPost.vue').default);
-
-// registering Modules
-Vue.use(VueRouter,VueAxios, Axios, Vuex);
 
 Axios.defaults.baseURL = 'http://172.17.0.1';
 
-const routes = [
-  {
-    name: 'ListPost',
-    path: '/',
-    component: Listpost
-  },
-  {
-    name: 'AddPost',
-    path: '/add-post',
-    component: Addpost
-  },
-  {
-    name: 'EditPost',
-    path: '/edit/:id',
-    component: Editpost
-  },
-  {
-    name: 'DeletePost',
-    path: '/post-delete/:id',
-    component: Deletepost
-  },
-  {
-    name: 'ViewPost',
-    path: '/view/:id',
-    component: Viewpost
-  }
-];
-
-const router = new VueRouter({ mode: 'history', routes: routes});
-
 new Vue({
-
   router,
+  store,
   render: h => h(App)
 }).$mount('#app');
