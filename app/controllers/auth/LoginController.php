@@ -37,18 +37,18 @@ class LoginController extends BaseController
         $validation->validate();
 
         if ($validation->fails()) {
-            return $this->json(['success' => false, 'error' => $validation->errors()->all()], 400);
+            return $this->json([ 'error' => $validation->errors()->toArray()], 400);
         }
 
         $manager = container()->get(EntityManager::class);
         $user = $manager->getRepository(User::class)->getByEmail($this->request->get('email'))->first();
 
         if (empty($user)) {
-            return $this->json(['success' => false, 'error' => ["User by email". $this->request->get('email') ." not found"]], 400);
+            return $this->json(['error' => ['email' => ["User by email". $this->request->get('email') ." not found"]]], 400);
         }
 
         if (!Bcrypt::verify($this->request->get('password'), $user['password'])) {
-            return $this->json(['success' => false, 'error' => ["Password wrong"]], 400);
+            return $this->json(['error' => ["Password wrong"]], 400);
         }
 
 

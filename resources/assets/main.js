@@ -6,6 +6,7 @@ import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css'
 import router from './routes'
 import store from './store';
+// import mixins from  './mixins';
 
 window.Vue = Vue;
 
@@ -19,9 +20,8 @@ Vue.use(Vuetify, VueAxios, Axios);
 
 import App from './components/App.vue';
 
-
-
 Axios.defaults.baseURL = 'http://172.17.0.1';
+
 
 new Vue({
   router,

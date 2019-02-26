@@ -23,7 +23,7 @@ services:
           - ./docker/nginx/logs/nginx-error.log:/var/log/nginx/error.log
           - ./docker/nginx/logs/nginx-access.log:/var/log/nginx/access.log
           - ./public/:/var/www/website/public
-
+#
     mysql:
         image: mariadb
         environment:
@@ -44,4 +44,39 @@ services:
           MYSQL_ROOT_PASSWORD: root
     redis:
         image: redis
+#    elasticsearch:
+#        image: docker.elastic.co/elasticsearch/elasticsearch:6.6.0
+#        container_name: elasticsearch1
+#        environment:
+#          - cluster.name=docker-cluster
+#          - bootstrap.memory_lock=true
+#          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#        ulimits:
+#          memlock:
+#            soft: -1
+#            hard: -1
+#        mem_limit: 1g
+#        ports:
+#          - 9200:9200
+#    logstash:
+#        image: logstash:6.6.0
+#        links:
+#            - mysql
+#            - elasticsearch
+#        volumes:
+#          - ./docker/logstash/jdbc-connector:/usr/share/logstash/jdbc-connector
+##          - ./docker/logstash/logstash-config.conf:/usr/share/logstash/pipeline/logstash-config.conf
+#    sphinx:
+#        image: macbre/sphinxsearch:3.0.1
+#        links:
+#          - mysql
+#        ports:
+#          - "127.0.0.1:36307:36307" # bind to local interface only!
+#        volumes:
+#          - ./docker/sphinx/data/:/opt/sphinx/test1/  # directory where sphinx will store index data
+#          - ./docker/sphinx/sphinx.conf:/opt/sphinx/conf/sphinx.conf  # SphinxSE configuration file
+#          - ./docker/sphinx/log/:/var/log/ # SphinxSE configuration file
+#        mem_limit: 512m # match indexer.value from sphinx.conf
+#
+#
 

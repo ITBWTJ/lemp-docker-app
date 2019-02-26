@@ -11,6 +11,7 @@ namespace App\Controllers\Api;
 use App\Entities\User;
 use Doctrine\ORM\EntityManager;
 use Src\Facades\Bcrypt;
+use Src\Facades\JWTToken;
 
 class UserController extends ApiBaseController
 {
@@ -153,5 +154,33 @@ class UserController extends ApiBaseController
 
         }
         return $this->json(['success' => false], 404);
+    }
+
+    public function getUserByToken()
+    {
+        $token = $this->request->get('token');
+
+        if (empty($token)) {
+            return $this->json(['error' => ['token' => ['Токен отсутствует']]], 401);
+        }
+
+        $userId = JWTToken::getAuthId($token);
+
+        $manager = container()->get(EntityManager::class);
+        $qb = $manager->createQueryBuilder()->select(['u.id', 'u.first_name', 'u.last_name', 'u.email'])->from(User::class, 'u')->where('u.id = :id')->setParameter('id', $userId);
+        $user = $qb->getQuery()->getSingleResult();
+
+        if (empty($user)) {
+            return $this->json(['error' => ['user' => ['Пользователь не найден']]], 401);
+        }
+
+        $data = [
+            'id' => $user['id'],
+            'first_name' => $user['first_name'],
+            'last_name' => $user['last_name'],
+            'email' => $user['email'],
+        ];
+
+        return $this->json(['data' => $data]);
     }
 }
