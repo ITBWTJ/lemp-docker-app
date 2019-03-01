@@ -1,0 +1,372 @@
+[Wed Feb 27 22:23:13.373 2019] [6] listening on all interfaces, port=9312
+[Wed Feb 27 22:23:13.373 2019] [6] listening on all interfaces, port=9306
+[Wed Feb 27 22:23:13.376 2019] [6] WARNING: index 'test1': prealloc: failed to open /opt/sphinx/index.sph: No such file or directory; NOT SERVING
+[Wed Feb 27 22:23:13.376 2019] [6] FATAL: no valid indexes to serve
+[Wed Feb 27 22:23:13.378 2019] [6] shutdown complete
+[Wed Feb 27 22:24:30.463 2019] [6] listening on all interfaces, port=9312
+[Wed Feb 27 22:24:30.464 2019] [6] listening on all interfaces, port=9306
+[Wed Feb 27 22:24:30.469 2019] [6] WARNING: index 'test1': prealloc: failed to open /opt/sphinx/index/.sph: No such file or directory; NOT SERVING
+[Wed Feb 27 22:24:30.469 2019] [6] FATAL: no valid indexes to serve
+[Wed Feb 27 22:24:30.470 2019] [6] shutdown complete
+[Wed Feb 27 22:29:29.607 2019] [6] listening on all interfaces, port=9312
+[Wed Feb 27 22:29:29.607 2019] [6] listening on all interfaces, port=9306
+[Wed Feb 27 22:29:29.610 2019] [6] WARNING: index 'test1': prealloc: failed to open /opt/sphinx/index.sph: No such file or directory; NOT SERVING
+[Wed Feb 27 22:29:29.610 2019] [6] FATAL: no valid indexes to serve
+[Wed Feb 27 22:29:29.611 2019] [6] shutdown complete
+[Wed Feb 27 22:30:31.470 2019] [6] listening on all interfaces, port=9312
+[Wed Feb 27 22:30:31.471 2019] [6] listening on all interfaces, port=9306
+[Wed Feb 27 22:30:31.474 2019] [6] WARNING: index 'test1': prealloc: failed to open /opt/sphinx/index/.sph: No such file or directory; NOT SERVING
+[Wed Feb 27 22:30:31.474 2019] [6] FATAL: no valid indexes to serve
+[Wed Feb 27 22:30:31.474 2019] [6] shutdown complete
+[Wed Feb 27 22:33:26.770 2019] [6] listening on all interfaces, port=9312
+[Wed Feb 27 22:33:26.771 2019] [6] listening on all interfaces, port=9306
+[Wed Feb 27 22:33:26.774 2019] [6] WARNING: index 'test1': prealloc: failed to open /opt/sphinx/index/.sph: No such file or directory; NOT SERVING
+[Wed Feb 27 22:33:26.774 2019] [6] FATAL: no valid indexes to serve
+[Wed Feb 27 22:33:26.774 2019] [6] shutdown complete
+[Wed Feb 27 22:35:50.434 2019] [6] listening on all interfaces, port=9312
+[Wed Feb 27 22:35:50.434 2019] [6] listening on all interfaces, port=9306
+[Wed Feb 27 22:35:50.437 2019] [6] WARNING: index 'test1': prealloc: failed to open /opt/sphinx/index.sph: No such file or directory; NOT SERVING
+[Wed Feb 27 22:35:50.437 2019] [6] FATAL: no valid indexes to serve
+[Wed Feb 27 22:35:50.438 2019] [6] shutdown complete
+[Wed Feb 27 22:36:46.594 2019] [6] listening on all interfaces, port=9312
+[Wed Feb 27 22:36:46.594 2019] [6] listening on all interfaces, port=9306
+[Wed Feb 27 22:36:46.597 2019] [6] WARNING: index 'test1': prealloc: failed to open /opt/sphinx/index.sph: No such file or directory; NOT SERVING
+[Wed Feb 27 22:36:46.600 2019] [6] WARNING: No extra index definitions found in data folder
+[Wed Feb 27 22:36:46.602 2019] [6] accepting connections
+[Wed Feb 27 22:36:46.603 2019] [14] prereading 1 indexes
+[Wed Feb 27 22:36:46.603 2019] [14] prereaded 1 indexes in 0.000 sec
+[Wed Feb 27 22:41:25.835 2019] [6] caught SIGHUP (seamless=1, in_rotate=0, need_rotate=0)
+[Wed Feb 27 22:41:25.852 2019] [7] rotating index 'test1': started
+[Wed Feb 27 22:41:25.855 2019] [7] rotating index 'test1': success
+[Wed Feb 27 22:41:25.856 2019] [7] rotating index: all indexes done
+[Wed Feb 27 22:43:36.212 2019] [6] caught SIGHUP (seamless=1, in_rotate=0, need_rotate=0)
+[Wed Feb 27 22:43:36.225 2019] [7] rotating index 'test1': started
+[Wed Feb 27 22:43:36.231 2019] [7] rotating index 'test1': success
+[Wed Feb 27 22:43:36.232 2019] [7] rotating index: all indexes done
+[Wed Feb 27 22:44:46.595 2019] [45] watchdog: main process 46 forked ok
+[Wed Feb 27 22:44:46.595 2019] [46] FATAL: failed to lock pid file '/var/log/searchd.pid': Resource temporarily unavailable (searchd already running?)
+[Wed Feb 27 22:44:46.597 2019] [46] shutdown complete
+[Wed Feb 27 22:44:46.597 2019] [45] watchdog: main process 46 exited cleanly (exit code 1), shutting down
+[Wed Feb 27 22:47:12.067 2019] [6] listening on all interfaces, port=9312
+[Wed Feb 27 22:47:12.067 2019] [6] listening on all interfaces, port=9306
+[Wed Feb 27 22:47:12.077 2019] [6] WARNING: No extra index definitions found in data folder
+[Wed Feb 27 22:47:12.078 2019] [6] binlog: replaying log /opt/sphinx/test1/binlog.001
+[Wed Feb 27 22:47:12.079 2019] [6] binlog: replay stats: 0 rows in 0 commits; 0 updates, 0 reconfigure; 0 indexes
+[Wed Feb 27 22:47:12.079 2019] [6] binlog: finished replaying /opt/sphinx/test1/binlog.001; 0.0 MB in 0.000 sec
+[Wed Feb 27 22:47:12.079 2019] [6] binlog: finished replaying total 1 in 0.000 sec
+[Wed Feb 27 22:47:12.080 2019] [6] accepting connections
+[Wed Feb 27 22:47:12.080 2019] [14] prereading 2 indexes
+[Wed Feb 27 22:47:12.236 2019] [14] prereaded 2 indexes in 0.156 sec
+[Wed Feb 27 22:49:44.166 2019] [6] listening on all interfaces, port=9312
+[Wed Feb 27 22:49:44.166 2019] [6] listening on all interfaces, port=9306
+[Wed Feb 27 22:49:44.175 2019] [6] WARNING: No extra index definitions found in data folder
+[Wed Feb 27 22:49:44.176 2019] [6] binlog: replaying log /opt/sphinx/test1/binlog.001
+[Wed Feb 27 22:49:44.177 2019] [6] binlog: replay stats: 0 rows in 0 commits; 0 updates, 0 reconfigure; 0 indexes
+[Wed Feb 27 22:49:44.177 2019] [6] binlog: finished replaying /opt/sphinx/test1/binlog.001; 0.0 MB in 0.000 sec
+[Wed Feb 27 22:49:44.177 2019] [6] binlog: replaying log /opt/sphinx/test1/binlog.002
+[Wed Feb 27 22:49:44.177 2019] [6] binlog: replay stats: 0 rows in 0 commits; 0 updates, 0 reconfigure; 0 indexes
+[Wed Feb 27 22:49:44.177 2019] [6] binlog: finished replaying /opt/sphinx/test1/binlog.002; 0.0 MB in 0.000 sec
+[Wed Feb 27 22:49:44.177 2019] [6] binlog: finished replaying total 2 in 0.000 sec
+[Wed Feb 27 22:49:44.178 2019] [6] accepting connections
+[Wed Feb 27 22:49:44.178 2019] [14] prereading 2 indexes
+[Wed Feb 27 22:49:44.187 2019] [14] prereaded 2 indexes in 0.009 sec
+[Wed Feb 27 22:56:30.077 2019] [6] listening on all interfaces, port=9312
+[Wed Feb 27 22:56:30.077 2019] [6] listening on all interfaces, port=9306
+[Wed Feb 27 22:56:30.087 2019] [6] WARNING: No extra index definitions found in data folder
+[Wed Feb 27 22:56:30.088 2019] [6] binlog: replaying log /opt/sphinx/test1/binlog.001
+[Wed Feb 27 22:56:30.089 2019] [6] binlog: replay stats: 0 rows in 0 commits; 0 updates, 0 reconfigure; 0 indexes
+[Wed Feb 27 22:56:30.089 2019] [6] binlog: finished replaying /opt/sphinx/test1/binlog.001; 0.0 MB in 0.000 sec
+[Wed Feb 27 22:56:30.089 2019] [6] binlog: replaying log /opt/sphinx/test1/binlog.002
+[Wed Feb 27 22:56:30.089 2019] [6] binlog: replay stats: 0 rows in 0 commits; 0 updates, 0 reconfigure; 0 indexes
+[Wed Feb 27 22:56:30.089 2019] [6] binlog: finished replaying /opt/sphinx/test1/binlog.002; 0.0 MB in 0.000 sec
+[Wed Feb 27 22:56:30.089 2019] [6] binlog: replaying log /opt/sphinx/test1/binlog.003
+[Wed Feb 27 22:56:30.089 2019] [6] binlog: replay stats: 0 rows in 0 commits; 0 updates, 0 reconfigure; 0 indexes
+[Wed Feb 27 22:56:30.089 2019] [6] binlog: finished replaying /opt/sphinx/test1/binlog.003; 0.0 MB in 0.000 sec
+[Wed Feb 27 22:56:30.090 2019] [6] binlog: finished replaying total 3 in 0.001 sec
+[Wed Feb 27 22:56:30.091 2019] [6] accepting connections
+[Wed Feb 27 22:56:30.091 2019] [14] prereading 2 indexes
+[Wed Feb 27 22:56:30.091 2019] [14] prereaded 2 indexes in 0.001 sec
+[Wed Feb 27 22:57:23.813 2019] [6] caught SIGHUP (seamless=1, in_rotate=0, need_rotate=0)
+[Wed Feb 27 22:57:23.851 2019] [7] rotating index 'test1': started
+[Wed Feb 27 22:57:23.857 2019] [7] rotating index 'test1': success
+[Wed Feb 27 22:57:23.858 2019] [7] rotating index: all indexes done
+------- FATAL: CRASH DUMP -------
+[Wed Feb 27 22:57:28.300 2019] [    6]
+
+--- crashed SphinxQL request dump ---
+SELECT * FROM test1
+--- request dump end ---
+Sphinx 3.0.1 (commit 7fec4f6)
+Handling signal 11
+-------------- backtrace begins here ---------------
+Program compiled with gcc 5.4.0
+Configured with flags:  '--enable-dl' '--with-mysql' '--with-pgsql' 'CXXFLAGS=-DSPHINX_TAG= -g1' 'LDFLAGS=-static-libstdc++'
+Host OS is Linux ubuntu16desktop 4.4.0-101-generic #124-Ubuntu SMP Fri Nov 10 18:29:59 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+Stack bottom = 0x7f759ff07ef7, thread stack size = 0x20000
+Trying manual backtrace:
+Something wrong with thread stack, manual backtrace may be incorrect (fp=0x7f759fefefd0)
+Stack looks OK, attempting backtrace.
+0x4094fb
+0x4d5701
+0x5ba615
+0x4d5bb2
+0x4d72f1
+0x4e4c86
+0x4e4feb
+0x41d13a
+Trying system backtrace:
+begin of system symbols:
+searchd[0x58405d]
+searchd[0x4094fb]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x110c0)[0x7f75a08400c0]
+searchd[0x4d5701]
+searchd[0x5ba615]
+searchd[0x4d5bb2]
+searchd[0x4d72f1]
+searchd[0x4e4c86]
+searchd[0x4e4feb]
+searchd[0x41d13a]
+searchd[0x41fb2e]
+searchd[0x41a946]
+searchd[0x440c63]
+searchd[0x46ea09]
+searchd[0x44c3f1]
+searchd[0x44c13c]
+searchd[0x44c583]
+searchd[0x4560f9]
+searchd[0x409894]
+searchd[0x5898eb]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x7494)[0x7f75a0836494]
+/lib/x86_64-linux-gnu/libc.so.6(clone+0x3f)[0x7f75a005daff]
+-------------- backtrace ends here ---------------
+Please, create a bug report in our bug tracker (http://sphinxsearch.com/bugs) and attach there:
+a) searchd log, b) searchd binary, c) searchd symbols.
+Look into the chapter 'Reporting bugs' in the documentation
+(/usr/share/doc/sphinx/sphinx.txt or http://sphinxsearch.com/docs/current.html#reporting-bugs)
+--- BT to source lines (depth 22): ---
+conversion failed (error 'No such file or directory'):
+  1. Run the command provided below over the crashed binary (for example, 'searchd'):
+  2. Attach the source.txt to the bug report.
+addr2line -e searchd 0x58405d 0x4094fb 0xa08400c0 0x4d5701 0x5ba615 0x4d5bb2 0x4d72f1 0x4e4c86 
+0x4e4feb 0x41d13a 0x41fb2e 0x41a946 0x440c63 0x46ea09 0x44c3f1 0x44c13c 0x44c583 0x4560f9 
+0x409894 0x5898eb 0xa0836494 0xa005daff > source.txt
+[Wed Feb 27 22:58:20.356 2019] [6] listening on all interfaces, port=9312
+[Wed Feb 27 22:58:20.356 2019] [6] listening on all interfaces, port=9306
+[Wed Feb 27 22:58:20.369 2019] [6] WARNING: No extra index definitions found in data folder
+[Wed Feb 27 22:58:20.370 2019] [6] binlog: replaying log /opt/sphinx/test1/binlog.001
+[Wed Feb 27 22:58:20.370 2019] [6] binlog: replay stats: 0 rows in 0 commits; 0 updates, 0 reconfigure; 0 indexes
+[Wed Feb 27 22:58:20.370 2019] [6] binlog: finished replaying /opt/sphinx/test1/binlog.001; 0.0 MB in 0.000 sec
+[Wed Feb 27 22:58:20.370 2019] [6] binlog: finished replaying total 1 in 0.000 sec
+[Wed Feb 27 22:58:20.374 2019] [6] accepting connections
+[Wed Feb 27 22:58:20.374 2019] [14] prereading 2 indexes
+[Wed Feb 27 22:58:20.383 2019] [14] prereaded 2 indexes in 0.008 sec
+------- FATAL: CRASH DUMP -------
+[Wed Feb 27 22:58:36.681 2019] [    6]
+
+--- crashed SphinxQL request dump ---
+SELECT * FROM test1
+--- request dump end ---
+Sphinx 3.0.1 (commit 7fec4f6)
+Handling signal 11
+-------------- backtrace begins here ---------------
+Program compiled with gcc 5.4.0
+Configured with flags:  '--enable-dl' '--with-mysql' '--with-pgsql' 'CXXFLAGS=-DSPHINX_TAG= -g1' 'LDFLAGS=-static-libstdc++'
+Host OS is Linux ubuntu16desktop 4.4.0-101-generic #124-Ubuntu SMP Fri Nov 10 18:29:59 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+Stack bottom = 0x7ff9cad77ef7, thread stack size = 0x20000
+Trying manual backtrace:
+Something wrong with thread stack, manual backtrace may be incorrect (fp=0x7ff9cad6efd0)
+Stack looks OK, attempting backtrace.
+0x4094fb
+0x4d5701
+0x5ba615
+0x4d5bb2
+0x4d72f1
+0x4e4c86
+0x4e4feb
+0x41d13a
+Trying system backtrace:
+begin of system symbols:
+searchd[0x58405d]
+searchd[0x4094fb]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x110c0)[0x7ff9cb6b00c0]
+searchd[0x4d5701]
+searchd[0x5ba615]
+searchd[0x4d5bb2]
+searchd[0x4d72f1]
+searchd[0x4e4c86]
+searchd[0x4e4feb]
+searchd[0x41d13a]
+searchd[0x41fb2e]
+searchd[0x41a946]
+searchd[0x440c63]
+searchd[0x46ea09]
+searchd[0x44c3f1]
+searchd[0x44c13c]
+searchd[0x44c583]
+searchd[0x4560f9]
+searchd[0x409894]
+searchd[0x5898eb]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x7494)[0x7ff9cb6a6494]
+/lib/x86_64-linux-gnu/libc.so.6(clone+0x3f)[0x7ff9caecdaff]
+-------------- backtrace ends here ---------------
+Please, create a bug report in our bug tracker (http://sphinxsearch.com/bugs) and attach there:
+a) searchd log, b) searchd binary, c) searchd symbols.
+Look into the chapter 'Reporting bugs' in the documentation
+(/usr/share/doc/sphinx/sphinx.txt or http://sphinxsearch.com/docs/current.html#reporting-bugs)
+--- BT to source lines (depth 22): ---
+conversion failed (error 'No such file or directory'):
+  1. Run the command provided below over the crashed binary (for example, 'searchd'):
+  2. Attach the source.txt to the bug report.
+addr2line -e searchd 0x58405d 0x4094fb 0xcb6b00c0 0x4d5701 0x5ba615 0x4d5bb2 0x4d72f1 0x4e4c86 
+0x4e4feb 0x41d13a 0x41fb2e 0x41a946 0x440c63 0x46ea09 0x44c3f1 0x44c13c 0x44c583 0x4560f9 
+0x409894 0x5898eb 0xcb6a6494 0xcaecdaff > source.txt
+[Wed Feb 27 23:01:48.737 2019] [6] listening on all interfaces, port=9312
+[Wed Feb 27 23:01:48.738 2019] [6] listening on all interfaces, port=9306
+[Wed Feb 27 23:01:48.748 2019] [6] WARNING: No extra index definitions found in data folder
+[Wed Feb 27 23:01:48.752 2019] [6] accepting connections
+[Wed Feb 27 23:01:48.752 2019] [14] prereading 2 indexes
+[Wed Feb 27 23:01:48.770 2019] [14] prereaded 2 indexes in 0.018 sec
+------- FATAL: CRASH DUMP -------
+[Wed Feb 27 23:02:23.349 2019] [    6]
+
+--- crashed SphinxQL request dump ---
+SELECT * FROM test1
+--- request dump end ---
+Sphinx 3.0.1 (commit 7fec4f6)
+Handling signal 11
+-------------- backtrace begins here ---------------
+Program compiled with gcc 5.4.0
+Configured with flags:  '--enable-dl' '--with-mysql' '--with-pgsql' 'CXXFLAGS=-DSPHINX_TAG= -g1' 'LDFLAGS=-static-libstdc++'
+Host OS is Linux ubuntu16desktop 4.4.0-101-generic #124-Ubuntu SMP Fri Nov 10 18:29:59 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+Stack bottom = 0x7fa4cbaa8ef7, thread stack size = 0x20000
+Trying manual backtrace:
+Something wrong with thread stack, manual backtrace may be incorrect (fp=0x7fa4cba9ffd0)
+Stack looks OK, attempting backtrace.
+0x4094fb
+Trying system backtrace:
+begin of system symbols:
+searchd[0x58405d]
+searchd[0x4094fb]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x110c0)[0x7fa4cc3e10c0]
+searchd[0x4d5701]
+searchd[0x5ba615]
+searchd[0x4d5bb2]
+searchd[0x4d72f1]
+searchd[0x4e4c86]
+searchd[0x4e4feb]
+searchd[0x41d13a]
+searchd[0x41fb2e]
+searchd[0x41a946]
+searchd[0x440c63]
+searchd[0x46ea09]
+searchd[0x44c3f1]
+searchd[0x44c13c]
+searchd[0x44c583]
+searchd[0x4560f9]
+searchd[0x409894]
+searchd[0x5898eb]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x7494)[0x7fa4cc3d7494]
+/lib/x86_64-linux-gnu/libc.so.6(clone+0x3f)[0x7fa4cbbfeaff]
+-------------- backtrace ends here ---------------
+Please, create a bug report in our bug tracker (http://sphinxsearch.com/bugs) and attach there:
+a) searchd log, b) searchd binary, c) searchd symbols.
+Look into the chapter 'Reporting bugs' in the documentation
+(/usr/share/doc/sphinx/sphinx.txt or http://sphinxsearch.com/docs/current.html#reporting-bugs)
+--- BT to source lines (depth 22): ---
+conversion failed (error 'No such file or directory'):
+  1. Run the command provided below over the crashed binary (for example, 'searchd'):
+  2. Attach the source.txt to the bug report.
+addr2line -e searchd 0x58405d 0x4094fb 0xcc3e10c0 0x4d5701 0x5ba615 0x4d5bb2 0x4d72f1 0x4e4c86 
+0x4e4feb 0x41d13a 0x41fb2e 0x41a946 0x440c63 0x46ea09 0x44c3f1 0x44c13c 0x44c583 0x4560f9 
+0x409894 0x5898eb 0xcc3d7494 0xcbbfeaff > source.txt
+[Wed Feb 27 23:03:00.721 2019] [6] listening on all interfaces, port=9312
+[Wed Feb 27 23:03:00.721 2019] [6] listening on all interfaces, port=9306
+[Wed Feb 27 23:03:00.736 2019] [6] WARNING: No extra index definitions found in data folder
+[Wed Feb 27 23:03:00.741 2019] [6] binlog: replaying log /opt/sphinx/test1/binlog.001
+[Wed Feb 27 23:03:00.741 2019] [6] binlog: replay stats: 0 rows in 0 commits; 0 updates, 0 reconfigure; 0 indexes
+[Wed Feb 27 23:03:00.741 2019] [6] binlog: finished replaying /opt/sphinx/test1/binlog.001; 0.0 MB in 0.000 sec
+[Wed Feb 27 23:03:00.741 2019] [6] binlog: finished replaying total 1 in 0.000 sec
+[Wed Feb 27 23:03:00.742 2019] [6] accepting connections
+[Wed Feb 27 23:03:00.745 2019] [14] prereading 2 indexes
+[Wed Feb 27 23:03:00.754 2019] [14] prereaded 2 indexes in 0.011 sec
+[Wed Feb 27 23:03:34.748 2019] [6] caught SIGHUP (seamless=1, in_rotate=0, need_rotate=0)
+[Wed Feb 27 23:03:34.750 2019] [7] rotating index 'test1': started
+[Wed Feb 27 23:03:34.762 2019] [7] rotating index 'test1': success
+[Wed Feb 27 23:03:34.763 2019] [7] rotating index: all indexes done
+------- FATAL: CRASH DUMP -------
+[Wed Feb 27 23:03:54.462 2019] [    6]
+
+--- crashed SphinxQL request dump ---
+SELECT * FROM test1
+--- request dump end ---
+Sphinx 3.0.1 (commit 7fec4f6)
+Handling signal 11
+-------------- backtrace begins here ---------------
+Program compiled with gcc 5.4.0
+Configured with flags:  '--enable-dl' '--with-mysql' '--with-pgsql' 'CXXFLAGS=-DSPHINX_TAG= -g1' 'LDFLAGS=-static-libstdc++'
+Host OS is Linux ubuntu16desktop 4.4.0-101-generic #124-Ubuntu SMP Fri Nov 10 18:29:59 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+Stack bottom = 0x7f40abd31ef7, thread stack size = 0x20000
+Trying manual backtrace:
+Something wrong with thread stack, manual backtrace may be incorrect (fp=0x7f40abd28fd0)
+Stack looks OK, attempting backtrace.
+0x4094fb
+0x4d5701
+0x5ba615
+0x4d5bb2
+0x4d72f1
+0x4e4c86
+0x4e4feb
+0x41d13a
+0x41fb2e
+0x41a946
+0x440c63
+0x46ea09
+0x44c3f1
+0x44c13c
+Trying system backtrace:
+begin of system symbols:
+searchd[0x58405d]
+searchd[0x4094fb]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x110c0)[0x7f40ab30a0c0]
+searchd[0x4d5701]
+searchd[0x5ba615]
+searchd[0x4d5bb2]
+searchd[0x4d72f1]
+searchd[0x4e4c86]
+searchd[0x4e4feb]
+searchd[0x41d13a]
+searchd[0x41fb2e]
+searchd[0x41a946]
+searchd[0x440c63]
+searchd[0x46ea09]
+searchd[0x44c3f1]
+searchd[0x44c13c]
+searchd[0x44c583]
+searchd[0x4560f9]
+searchd[0x409894]
+searchd[0x5898eb]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x7494)[0x7f40ab300494]
+/lib/x86_64-linux-gnu/libc.so.6(clone+0x3f)[0x7f40aab27aff]
+-------------- backtrace ends here ---------------
+Please, create a bug report in our bug tracker (http://sphinxsearch.com/bugs) and attach there:
+a) searchd log, b) searchd binary, c) searchd symbols.
+Look into the chapter 'Reporting bugs' in the documentation
+(/usr/share/doc/sphinx/sphinx.txt or http://sphinxsearch.com/docs/current.html#reporting-bugs)
+--- BT to source lines (depth 22): ---
+conversion failed (error 'No such file or directory'):
+  1. Run the command provided below over the crashed binary (for example, 'searchd'):
+  2. Attach the source.txt to the bug report.
+addr2line -e searchd 0x58405d 0x4094fb 0xab30a0c0 0x4d5701 0x5ba615 0x4d5bb2 0x4d72f1 0x4e4c86 
+0x4e4feb 0x41d13a 0x41fb2e 0x41a946 0x440c63 0x46ea09 0x44c3f1 0x44c13c 0x44c583 0x4560f9 
+0x409894 0x5898eb 0xab300494 0xaab27aff > source.txt
+[Fri Mar  1 22:43:25.991 2019] [1] FATAL: failed to open query log file '/varlog/query.log': No such file or directory
+[Fri Mar  1 22:44:08.388 2019] [1] listening on all interfaces, port=9312
+[Fri Mar  1 22:44:08.393 2019] [1] listening on all interfaces, port=9306
+[Fri Mar  1 22:44:08.404 2019] [1] rotating index 'test1': success
+[Fri Mar  1 22:44:08.408 2019] [1] FATAL: failed to open '/var/data/binlog.lock': 2 'No such file or directory'
+[Fri Mar  1 22:45:42.195 2019] [1] listening on all interfaces, port=9312
+[Fri Mar  1 22:45:42.196 2019] [1] listening on all interfaces, port=9306
+[Fri Mar  1 22:45:42.206 2019] [1] accepting connections
+[Fri Mar  1 22:49:43.983 2019] [1] caught SIGTERM, shutting down
+[Fri Mar  1 22:49:44.031 2019] [1] rt: index testrt: ramchunk saved in 0.003 sec
+[Fri Mar  1 22:49:44.058 2019] [1] shutdown complete

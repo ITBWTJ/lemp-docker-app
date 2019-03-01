@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'dbname' => 'own.lemp.docker',
+    'dbname' => 'test',
     'user' => 'root',
     'password' => 'root',
     'host' => 'mysql',

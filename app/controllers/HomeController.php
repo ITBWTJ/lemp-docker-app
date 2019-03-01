@@ -15,6 +15,8 @@ use App\Http\Stream;
 use Doctrine\ORM\EntityManager;
 use App\Repositories\PostRepository;
 use App\Entities\Post;
+use Foolz\SphinxQL\Drivers\Pdo\Connection;
+use Foolz\SphinxQL\SphinxQL;
 use function GuzzleHttp\Psr7\stream_for;
 
 
@@ -61,6 +63,36 @@ class HomeController extends BaseController
      */
     public function index()
     {
+
+//        include __ROOT__.'/sphinxapi.php';
+//        $cl = new \SphinxClient();
+//        $host = '172.23.0.6';
+//        $port = '9312';
+//
+//        $cl->SetServer ( $host, $port );
+//        $cl->SetConnectTimeout ( 3);
+//        $cl->SetArrayResult ( true );
+//        $cl->SetMatchMode ( SPH_MATCH_ALL );
+//
+////        $cl->SetSelect ( '' );
+//
+//
+////$cl->SetRankingMode ( $ranker );
+//        $res = $cl->Query ( 'SELECT * FROM test1 WHERE_MATCH("file1.mp3")', '*' );
+//
+//        echo '<pre>';
+//        var_dump($res);
+//        echo '</pre>';
+//        die();
+
+        $conn = new Connection();
+        $conn->setParams(array('host' => 'sphinx', 'port' => 9306));
+
+        $query = (new SphinxQL($conn))->select('*')
+            ->from('test1');
+
+        $result = $query->execute()->fetchAllAssoc();
+        dd($result);
         $this->postCache = new PostCacheRepository();
         if (!$this->postCache->hasPosts()) {
             $posts = $this->postRep->getPostsWithUsers(10)->getResult();
