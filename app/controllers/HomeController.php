@@ -66,33 +66,30 @@ class HomeController extends BaseController
 
 //        include __ROOT__.'/sphinxapi.php';
 //        $cl = new \SphinxClient();
-//        $host = '172.23.0.6';
+//        $host = 'sphinx';
 //        $port = '9312';
 //
 //        $cl->SetServer ( $host, $port );
 //        $cl->SetConnectTimeout ( 3);
 //        $cl->SetArrayResult ( true );
-//        $cl->SetMatchMode ( SPH_MATCH_ALL );
-//
-////        $cl->SetSelect ( '' );
-//
-//
-////$cl->SetRankingMode ( $ranker );
-//        $res = $cl->Query ( 'SELECT * FROM test1 WHERE_MATCH("file1.mp3")', '*' );
+//        $cl->SetRankingMode(SPH_RANK_PROXIMITY_BM25);
+//        $cl->SetMatchMode(SPH_MATCH_EXTENDED);
+//        $cl->SetSelect('*');
+//        $res = $cl->Query ( '', 'posts' );
 //
 //        echo '<pre>';
 //        var_dump($res);
 //        echo '</pre>';
 //        die();
 
-        $conn = new Connection();
-        $conn->setParams(array('host' => 'sphinx', 'port' => 9306));
-
-        $query = (new SphinxQL($conn))->select('*')
-            ->from('test1');
-
-        $result = $query->execute()->fetchAllAssoc();
-        dd($result);
+//        $conn = new Connection();
+//        $conn->setParams(array('host' => 'sphinx', 'port' => 9306));
+//
+//        $query = (new SphinxQL($conn))->select('*')
+//            ->from('posts');
+//
+//        $result = $query->execute()->fetchAllAssoc();
+//        dd($result);
         $this->postCache = new PostCacheRepository();
         if (!$this->postCache->hasPosts()) {
             $posts = $this->postRep->getPostsWithUsers(10)->getResult();

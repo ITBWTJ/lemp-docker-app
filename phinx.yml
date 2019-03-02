@@ -8,7 +8,7 @@ environments:
     production:
         adapter: mysql
         host: mysql
-        name: test
+        name: lemp.docker.app
         user: root
         pass: 'root'
         port: 3306
@@ -17,7 +17,7 @@ environments:
     development:
         adapter: mysql
         host: mysql
-        name: test
+        name: lemp.docker.app
         user: root
         pass: 'root'
         port: 3306

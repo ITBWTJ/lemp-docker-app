@@ -30,6 +30,8 @@ services:
         environment:
           MYSQL_TCP_PORT: 3306
           MYSQL_ROOT_PASSWORD: root
+        volumes:
+          - ./docker/mysql/import/:/var/import/
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -77,7 +79,7 @@ services:
           - ./docker/own-sphinx/rt/:/opt/data/rt/
           - ./docker/sphinx/log:/var/log/
           - ./docker/sphinx/binlog:/var/binlog/
-        command: bash -c " searchd --config /etc/sphinxsearch/sphinx.conf --nodetach"
+        command: bash -c "searchd --config /etc/sphinxsearch/sphinx.conf --nodetach"
 #    sphinx:
 #        image: macbre/sphinxsearch:3.0.1
 #        links:
