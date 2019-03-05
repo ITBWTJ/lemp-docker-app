@@ -7,11 +7,13 @@
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn :to="{path:'/'}" flat>Главная</v-btn>
         <v-btn v-if="!user" :to="{path:'/login'}" flat>Войти</v-btn>
-        <v-btn v-if="user" :to="{path:'/login'}" flat>{{ user.first_name }}</v-btn>
+        <v-btn v-if="user" :to="{path:'/admin'}" flat>{{ user.first_name }}</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-app>
-      <router-view></router-view>
+      <v-content>
+        <router-view></router-view>
+      </v-content>
     </v-app>
 
 

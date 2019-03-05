@@ -21,7 +21,8 @@ export default new Vuex.Store({
     },
     deleteToken: (state) => {
       state.token = null;
-      localStorage.setItem('token', token);
+      state.user = null;
+      localStorage.setItem('token', null);
     },
     setUser: (state, user) => {
       state.user = user;

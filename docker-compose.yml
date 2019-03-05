@@ -8,7 +8,7 @@ services:
             dockerfile: ./docker/php-fpm/phpfpm.docker
         links:
           - mysql:mysql
-          - sphinx
+#          - sphinx
         ports:
           - "9001:9000"
         volumes:
@@ -33,18 +33,18 @@ services:
         volumes:
           - ./docker/mysql/import/:/var/import/
 
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        depends_on:
-          - mysql
-        links:
-            - mysql:mysql
-        ports:
-            - 8183:80
-        environment:
-          PMA_HOST: mysql
-          PMA_PORT: 3306
-          MYSQL_ROOT_PASSWORD: root
+#    phpmyadmin:
+#        image: phpmyadmin/phpmyadmin
+#        depends_on:
+#          - mysql
+#        links:
+#            - mysql:mysql
+#        ports:
+#            - 8183:80
+#        environment:
+#          PMA_HOST: mysql
+#          PMA_PORT: 3306
+#          MYSQL_ROOT_PASSWORD: root
     redis:
         image: redis
 #    elasticsearch:
@@ -69,17 +69,17 @@ services:
 #        volumes:
 #          - ./docker/logstash/jdbc-connector:/usr/share/logstash/jdbc-connector
 ##          - ./docker/logstash/logstash-config.conf:/usr/share/logstash/pipeline/logstash-config.conf
-    sphinx:
-        image: sphinx:latest
-        links:
-          - mysql
-        volumes:
-          - ./docker/own-sphinx/conf/:/etc/sphinxsearch/
-          - ./docker/own-sphinx/index/:/opt/data/index/
-          - ./docker/own-sphinx/rt/:/opt/data/rt/
-          - ./docker/sphinx/log:/var/log/
-          - ./docker/sphinx/binlog:/var/binlog/
-        command: bash -c "searchd --config /etc/sphinxsearch/sphinx.conf --nodetach"
+#    sphinx:
+#        image: sphinx:latest
+#        links:
+#          - mysql
+#        volumes:
+#          - ./docker/own-sphinx/conf/:/etc/sphinxsearch/
+#          - ./docker/own-sphinx/index/:/opt/data/index/
+#          - ./docker/own-sphinx/rt/:/opt/data/rt/
+#          - ./docker/sphinx/log:/var/log/
+#          - ./docker/sphinx/binlog:/var/binlog/
+#        command: bash -c "searchd --config /etc/sphinxsearch/sphinx.conf --nodetach"
 #    sphinx:
 #        image: macbre/sphinxsearch:3.0.1
 #        links:

@@ -58,12 +58,14 @@
 
             Axios.get('/api/users/me?token=' + this.$store.state.token, ).then((response) => {
                 this.$store.commit('setUser', response.data.data);
+                this.$router.push('/admin');
             })
 
           }).catch((error) => {
             console.log(error.response.data.error);
             this.emailErrors = this.passwordErrors = [];
             const errors = error.response.data.error;
+            this.$store.commit('deleteToken');
 
             for (let key in error.response.data.error) {
               if (key === 'password') this.passwordErrors = Object.values(errors[key]);

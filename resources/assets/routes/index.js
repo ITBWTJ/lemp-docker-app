@@ -7,6 +7,7 @@ import DeletePost from '../components/DeletePost';
 import ViewPost from '../components/ViewPost';
 import Login from '../components/Login';
 import Admin from '../components/admin/Admin'
+import AdminUsers from '../components/admin/Users'
 
 Vue.use(Router);
 
@@ -47,5 +48,16 @@ export default new Router({
                 name: 'Admin',
                 path: '/admin',
                 component: Admin
+            },
+            {
+                name: 'Admin.Users',
+                path: '/admin/users',
+                component: AdminUsers
+            },
+            {
+                name: 'Admin.Posts',
+                path: '/admin/posts',
+                component: Admin
             }
+
         ]});

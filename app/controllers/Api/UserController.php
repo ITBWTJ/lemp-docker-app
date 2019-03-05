@@ -29,9 +29,9 @@ class UserController extends ApiBaseController
         foreach ($users as $user) {
             $data[] = [
                 'id' => $user->getId(),
-                'first_name' => $user->getFirstName(),
-                'last_name' => $user->getLastName(),
+                'name' => $user->getFirstName() . ' ' . $user->getLastName(),
                 'email' => $user->getEmail(),
+                'created_at' => $user->getCreatedAt()->format('Y-m-d H:i:s'),
             ];
         }
 

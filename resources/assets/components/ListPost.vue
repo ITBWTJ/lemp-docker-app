@@ -37,7 +37,8 @@
 
   export default {
     data() {
-      return {posts: [],
+      return {
+        posts: [],
         total: 0,
         perPage: 3,
         currentPage: 1
