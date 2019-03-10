@@ -9,34 +9,79 @@
 namespace App\Controllers\Api;
 
 use App\Entities\User;
+use App\Http\Request;
+use App\Http\Response;
+use App\Repositories\UserRepository;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Src\Facades\Bcrypt;
 use Src\Facades\JWTToken;
 
 class UserController extends ApiBaseController
 {
     /**
-     * @return \App\Http\Response
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @var EntityManager|mixed
+     */
+    private $manager;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * UserController constructor.
+     * @param Request $request
+     * @param Response $response
+     */
+    public function __construct(Request $request, Response $response)
+    {
+        parent::__construct($request, $response);
+
+        $this->manager = container()->get(EntityManager::class);
+        $this->userRepository = $this->manager->getRepository(User::class);
+
+    }
+
+    /**
+     * @return Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function index()
     {
-        $manager = container()->get(EntityManager::class);
-        $users = $manager->getRepository(User::class)->findAll();
+        try {
+            $users = $this->userRepository
+                ->pagination($this->request->get('currentPage'), $this->request->get('perPage'))
+                ->getResult();
+
+            $total = $this->userRepository
+                ->findTotal()
+                ->getTotal();
+        } catch (NoResultException  | NonUniqueResultException $e) {
+            return $this->json(['success' => false, 'error' => ['No result founded']], 400);
+        }
+
 
         $data = [];
         foreach ($users as $user) {
             $data[] = [
-                'id' => $user->getId(),
-                'name' => $user->getFirstName() . ' ' . $user->getLastName(),
-                'email' => $user->getEmail(),
-                'created_at' => $user->getCreatedAt()->format('Y-m-d H:i:s'),
+                'id' => $user['id'],
+                'name' => $user['first_name'] . ' ' . $user['last_name'],
+                'email' => $user['email'],
+                'created_at' => $user['created_at']->format('Y-m-d H:i:s'),
             ];
         }
 
+        $result = [
+            'items' => $data,
+            'perPage' => (int)$this->request->get('perPage'),
+            'currentPage' => (int)$this->request->get('currentPage'),
+            'total' => (int)$total,
+        ];
 
-        return $this->json(['success' => true, 'data' => $data]);
+        return $this->json(['success' => true, 'data' => $result]);
     }
 
     /**

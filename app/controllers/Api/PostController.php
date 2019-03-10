@@ -62,13 +62,20 @@ class PostController extends ApiBaseController
             ->findTotal()
             ->getTotal();
 
+        $posts = array_map(function ($item) {
+            if (is_object($item['created_at'])) {
+                $item['created_at'] = $item['created_at']->format('Y-m-d H:i:s');
+            }
+
+            return $item;
+        }, $posts);
+
         $result = [
             'items' => $posts,
-            'currentPage' => (int)$this->request->get('currentPage') ?? 1,
-            'perPage' => (int)$this->request->get('perPage') ?? PostRepository::PER_PAGE,
-            'total' => $total,
+            'currentPage' => (int)$this->request->get('currentPage'),
+            'perPage' => (int)$this->request->get('perPage'),
+            'total' => (int)$total,
         ];
-
 
         return $this->json(['success' => true, 'data' => $result]);
     }

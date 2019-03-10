@@ -6,7 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: localStorage.getItem('token') || null,
-    user: null
+    user: null,
+    users: [],
+    posts: []
   },
   actions: {
     setToken: (token) => {
@@ -26,6 +28,9 @@ export default new Vuex.Store({
     },
     setUser: (state, user) => {
       state.user = user;
+    },
+    getUsers: (state) => {
+      Axios.get('/api/users')
     }
   }
 })

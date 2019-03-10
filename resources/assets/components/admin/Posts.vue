@@ -7,15 +7,17 @@
       <v-flex>
         <v-data-table
                 :headers="headers"
-                :items="users"
+                :items="posts"
                 :pagination.sync="pagination"
+                :total-items="pagination.totalItems"
                 @update:pagination="updatePagination"
                 class="elevation-1"
         >
           <template slot="items" slot-scope="props">
             <td class="text-xs-left">{{ props.item.id }}</td>
-            <td class="text-xs-left">{{ props.item.name }}</td>
-            <td class="text-xs-left">{{ props.item.email }}</td>
+            <td class="text-xs-left">{{ props.item.title }}</td>
+            <td class="text-xs-left">{{ props.item.message }}</td>
+            <td class="text-xs-left">{{ props.item.user_id }}</td>
             <td class="text-xs-left">{{ props.item.created_at }}</td>
           </template>
         </v-data-table>
@@ -26,20 +28,21 @@
 
 
 <script>
-  import Sidebar from './Sidebar'
+  import Sidebar from './Sidebar';
   import mixin from '../../mixins';
 
   export default {
-    name: "Users",
+    name: "Posts",
     data() {
       return {
         headers: [
           {text: 'ID', value: 'id'},
-          {text: 'Name', value: 'name'},
-          {text: 'Email', value: 'email'},
+          {text: 'Title', value: 'title'},
+          {text: 'Message', value: 'message'},
+          {text: 'UserId', value: 'user_id'},
           {text: 'Date', value: 'created_at'}
         ],
-        users: [],
+        posts: [],
         pagination: {
           descending: true,
           page: 1,
@@ -50,24 +53,16 @@
       }
     },
     mounted: function () {
-      // Axios.get('/api/users').then((response) => {
-      //   this.users = response.data.data;
-      //
-      // }).catch((error) => {
-      //   if (error.response.statusCode == 401) {
-      //     console.log(error.response.data);
-      //     this.$router.push({name: 'Login'});
-      //   } else {
-      //     console.log(error.response.data);
-      //   }
-      // });
+
     },
     methods: {
-      loadUsers: function () {
-        this.getUsers(this.pagination.page, this.pagination.rowsPerPage).then((response) => {
-          this.users = response.items;
-          this.pagination.totalItems = response.total;
 
+      loadPosts: function () {
+        this.getPosts(this.pagination.page, this.pagination.rowsPerPage).then((response) => {
+          this.posts = response.items;
+          this.pagination.totalItems = response.total;
+          this.buildPosts();
+          console.log(this.posts);
         }).catch((error) => {
           if (error.response.statusCode == 401) {
             console.log(error.response.data);
@@ -77,15 +72,16 @@
           }
         });
       },
+      buildPosts: function () {
+        this.posts = this.posts.map( (item) => {
+          item.message = item.message.substring(0, 50);
+          return item;
+        })
+      },
       updatePagination: function (event) {
-        this.loadUsers();
+        this.loadPosts();
         console.log(event);
       }
-    },
-    computed: {
-      // listUsers: function () {
-      //   return this.users;
-      // }
     },
     mixins: [mixin],
     components: {

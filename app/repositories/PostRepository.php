@@ -9,11 +9,11 @@
 namespace App\Repositories;
 
 use App\Entities\Post;
+use App\Entities\traits\Pagination;
 use App\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
-use phpDocumentor\Reflection\Types\Integer;
+
 
 /**
  * Class PostRepository
@@ -21,12 +21,12 @@ use phpDocumentor\Reflection\Types\Integer;
  */
 class PostRepository extends EntityRepository
 {
+    use Pagination;
     /**
      * @var Query
      */
     private $q;
 
-    const PER_PAGE = 4;
 
     /**
      * @return PostRepository
@@ -49,15 +49,15 @@ class PostRepository extends EntityRepository
      */
     public function pagination(?int $currentPage, ?int $perPage): self
     {
-        $perPage = empty($perPage) ? self::PER_PAGE : abs($perPage);
-        $maxResult = $currentPage > 0 ? ($currentPage - 1) * $perPage : 0;
+        $this->perPage = $this->getPerPage($perPage);
+        $maxResult = $this->getOffset($currentPage);
 
         $this->q = $this->_em->createQueryBuilder()
             ->select(['p.id', 'p.title', 'p.message', 'p.user_id', 'p.created_at', 'p.deleted_at'])
             ->from(Post::class, 'p')
             ->where('p.deleted_at IS NULL')
             ->setFirstResult($maxResult)
-            ->setMaxResults(abs($perPage))
+            ->setMaxResults($this->perPage)
             ->getQuery();
 
         return $this;
