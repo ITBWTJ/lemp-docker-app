@@ -1,0 +1,97 @@
+version: '2'
+services:
+
+
+    phpfpm:
+        build:
+            context: ./
+            dockerfile: ./docker/php-fpm/phpfpm.docker
+        links:
+          - mysql:mysql
+#          - sphinx
+        ports:
+          - "9001:9000"
+        volumes:
+          - ./:/var/www/website
+
+    nginx:
+        image: tutum/nginx
+        ports:
+          - "80:80"
+        volumes:
+          - ./docker/nginx/default:/etc/nginx/conf.d/default.conf
+
+          - ./docker/nginx/logs/nginx-error.log:/var/log/nginx/error.log
+          - ./docker/nginx/logs/nginx-access.log:/var/log/nginx/access.log
+          - ./public/:/var/www/website/public
+#
+    mysql:
+        image: mariadb
+        environment:
+          MYSQL_TCP_PORT: 3306
+          MYSQL_ROOT_PASSWORD: root
+        volumes:
+          - ./docker/mysql/import/:/var/import/
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        depends_on:
+          - mysql
+        links:
+            - mysql:mysql
+        ports:
+            - 8183:80
+        environment:
+          PMA_HOST: mysql
+          PMA_PORT: 3306
+          MYSQL_ROOT_PASSWORD: root
+    redis:
+        image: redis
+#    elasticsearch:
+#        image: docker.elastic.co/elasticsearch/elasticsearch:6.6.0
+#        container_name: elasticsearch1
+#        environment:
+#          - cluster.name=docker-cluster
+#          - bootstrap.memory_lock=true
+#          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#        ulimits:
+#          memlock:
+#            soft: -1
+#            hard: -1
+#        mem_limit: 1g
+#        ports:
+#          - 9200:9200
+#    logstash:
+#        image: logstash:6.6.0
+#        links:
+#            - mysql
+#            - elasticsearch
+#        volumes:
+#          - ./docker/logstash/jdbc-connector:/usr/share/logstash/jdbc-connector
+##          - ./docker/logstash/logstash-config.conf:/usr/share/logstash/pipeline/logstash-config.conf
+#    sphinx:
+#        image: sphinx:latest
+#        links:
+#          - mysql
+#        volumes:
+#          - ./docker/own-sphinx/conf/:/etc/sphinxsearch/
+#          - ./docker/own-sphinx/index/:/opt/data/index/
+#          - ./docker/own-sphinx/rt/:/opt/data/rt/
+#          - ./docker/sphinx/log:/var/log/
+#          - ./docker/sphinx/binlog:/var/binlog/
+#        command: bash -c "searchd --config /etc/sphinxsearch/sphinx.conf --nodetach"
+#    sphinx:
+#        image: macbre/sphinxsearch:3.0.1
+#        links:
+#          - mysql
+#        ports:
+#          - "127.0.0.1:36307:36307" # bind to local interface only!
+#        volumes:
+#          - ./docker/sphinx/data:/opt/sphinx/test1  # directory where sphinx will store index data
+#          - ./docker/sphinx/index:/opt/sphinx/index  # directory where sphinx will store index data
+#          - ./docker/sphinx/sphinx.conf:/opt/sphinx/conf/sphinx.conf  # SphinxSE configuration file
+#          - ./docker/sphinx/log:/var/log # SphinxSE configuration file
+#        mem_limit: 128m # match indexer.value from sphinx.conf
+#
+#
+
