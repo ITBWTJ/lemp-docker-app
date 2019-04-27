@@ -18,7 +18,7 @@ export default new Router({
             {
                 name: 'ListPost',
                 path: '/',
-                component: ListPost
+                component: Login
             },
             {
                 name: 'AddPost',

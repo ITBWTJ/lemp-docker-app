@@ -53,6 +53,35 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog
+            v-model="editUser"
+            max-width="290"
+    >
+      <v-card>
+        <v-card-title class="headline">Edit user</v-card-title>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+                  color="green darken-1"
+                  flat="flat"
+                  @click="dialog = false"
+          >
+            Cancel
+          </v-btn>
+
+          <v-btn
+                  color="green darken-1"
+                  flat="flat"
+                  @click="deleteUser"
+          >
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -73,6 +102,7 @@
           {text: 'Action', value: 'action'}
         ],
         dialog: false,
+        editUser: false,
         deleteUserId: null,
         users: [],
         pagination: {

@@ -11,11 +11,11 @@
 </head>
 <body>
 
-    <div id="app">
+<div id="app">
 
-    </div>
-    <script src="/js/build.js"></script>
-    <?php if (false): ?>
+</div>
+<script src="/js/build.js"></script>
+    <?php if ($count > 0): ?>
         <?php foreach ($posts as $post): ?>
             <h1>Post # <?= $post['id']; ?></h1>
             <div><?= $post['message']; ?></div>

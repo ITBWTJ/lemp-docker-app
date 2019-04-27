@@ -1,6 +1,5 @@
-const path = require('path')
-const webpack = require('webpack')
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './resources/assets/main.js',
