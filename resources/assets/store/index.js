@@ -14,6 +14,9 @@ export default new Vuex.Store({
     setToken: (token) => {
       this.state.token = token;
       localStorage.setItem('token', token);
+    },
+    setPosts: posts => {
+      this.state.posts = posts;
     }
   },
   mutations: {
@@ -31,6 +34,9 @@ export default new Vuex.Store({
     },
     getUsers: (state) => {
       Axios.get('/api/users')
+    },
+    setPosts: (state, posts) => {
+      state.posts = posts;
     }
   }
 })
