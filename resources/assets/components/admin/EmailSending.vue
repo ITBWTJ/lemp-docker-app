@@ -6,11 +6,11 @@
       </v-flex>
       <v-flex>
 
-        <v-btn @click="showCreateDialog" color="info">Create Post</v-btn>
+        <v-btn @click="showCreateDialog" color="info">Create Email Sending</v-btn>
 
         <v-data-table
                 :headers="headers"
-                :items="posts"
+                :items="emailSendings"
                 :pagination.sync="pagination"
                 :total-items="pagination.totalItems"
                 @update:pagination="updatePagination"
@@ -18,12 +18,11 @@
         >
           <template slot="items" slot-scope="props">
             <td class="text-xs-left">{{ props.item.id }}</td>
-            <td class="text-xs-left">{{ props.item.title }}</td>
-            <td class="text-xs-left">{{ props.item.message }}</td>
-            <td class="text-xs-left">{{ props.item.user }}</td>
+            <td class="text-xs-left">{{ props.item.name }}</td>
+            <td class="text-xs-left">{{ props.item.text }}</td>
+            <td class="text-xs-left">{{ props.item.emails }}</td>
             <td class="text-xs-left">{{ props.item.created_at }}</td>
             <td class="text-xs-left action-td">
-              <v-icon @click="showEditDialog(props.item.id)" class="edit-icon">edit</v-icon>
               <v-icon @click="showDialog(props.item.id)" class="delete-icon">clear</v-icon>
             </td>
           </template>
@@ -62,67 +61,6 @@
 
 
     <v-dialog
-            v-model="editDialog"
-            max-width="490"
-    >
-      <v-card>
-        <v-card-title class="headline">Edit post </v-card-title>
-        <v-flex
-                xs12
-                md12
-        >
-          <v-text-field
-                  class="m20"
-                  v-model="editPost.title"
-                  :counter="255"
-                  label="Title"
-                  name="title"
-                  required
-          ></v-text-field>
-        </v-flex>
-        <v-flex>
-          <v-textarea
-                  v-model="editPost.message"
-                  class="m20"
-                  name="message"
-                  label="Message"
-                  value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
-          ></v-textarea>
-        </v-flex>
-        <v-flex>
-          <v-select
-                  v-model="editPost.user_id"
-                  :items="users"
-                  :item-text="(el) => { return el.name; }"
-                  :item-value="(el) => { return el.id; }"
-                  class="m20"
-                  box
-                  label="Box style"
-          ></v-select>
-        </v-flex>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn
-                  color="green darken-1"
-                  flat="flat"
-                  @click="editDialog = false"
-          >
-            Cancel
-          </v-btn>
-
-          <v-btn
-                  color="green darken-1"
-                  flat="flat"
-                  @click="updatePost"
-          >
-            OK
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog
             v-model="newDialog"
             max-width="490"
     >
@@ -134,7 +72,7 @@
         >
           <v-text-field
                   class="m20"
-                  v-model="newPost.title"
+                  v-model="newEmailSending.name"
                   :counter="255"
                   label="Title"
                   name="title"
@@ -143,7 +81,7 @@
         </v-flex>
         <v-flex>
           <v-textarea
-                  v-model="newPost.message"
+                  v-model="newEmailSending.text"
                   class="m20"
                   name="message"
                   label="Message"
@@ -151,15 +89,13 @@
           ></v-textarea>
         </v-flex>
         <v-flex>
-          <v-select
-                  v-model="newPost.user_id"
-                  :items="users"
-                  :item-text="(el) => { return el.name; }"
-                  :item-value="(el) => { return el.id; }"
+          <v-textarea
+                  v-model="newEmailSending.emails"
                   class="m20"
-                  box
-                  label="Box style"
-          ></v-select>
+                  name="message"
+                  label="Message"
+                  value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+          ></v-textarea>
         </v-flex>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -175,7 +111,7 @@
           <v-btn
                   color="green darken-1"
                   flat="flat"
-                  @click="createPost"
+                  @click="createEmailSending"
           >
             OK
           </v-btn>
@@ -193,31 +129,25 @@
   import store from '../../store';
 
   export default {
-    name: "Posts",
+    name: "EmailSending",
     data() {
       return {
         headers: [
           {text: 'ID', value: 'id'},
-          {text: 'Title', value: 'title'},
-          {text: 'Message', value: 'message'},
-          {text: 'UserId', value: 'user_id'},
+          {text: 'Name', value: 'name'},
+          {text: 'Text', value: 'text'},
+          {text: 'Emails', value: 'emails'},
           {text: 'Date', value: 'created_at'},
           {text: 'action', value: 'action'}
         ],
         users: [],
-        posts: [],
+        emailSendings: [],
         dialog: false,
-        editDialog: false,
         newDialog: false,
-        editPost: {
-          title: null,
-          message: null,
-          user_id: null
-        },
-        newPost: {
-          title: '',
-          message: '',
-          user_id: 0,
+        newEmailSending: {
+          name: '',
+          emails: '',
+          text: ''
         },
         deleteEntityId: null,
         pagination: {
@@ -295,7 +225,7 @@
       },
       deleteEntity: function () {
         this.dialog = false;
-        const url = '/api/posts/' + this.deleteEntityId + '?token=' + store.state.token;
+        const url = '/api/email-sending/' + this.deleteEntityId + '?token=' + store.state.token;
         Axios.delete(url).then((response) => {
           if (response.data.success) {
 

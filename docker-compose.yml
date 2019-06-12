@@ -32,6 +32,8 @@ services:
           MYSQL_ROOT_PASSWORD: root
         volumes:
           - ./docker/mysql/import/:/var/import/
+        ports:
+          - "3306:3306"
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin

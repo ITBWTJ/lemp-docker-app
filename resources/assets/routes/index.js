@@ -9,6 +9,7 @@ import Login from '../components/Login';
 import Admin from '../components/admin/Admin';
 import AdminUsers from '../components/admin/Users';
 import AdminPosts from '../components/admin/Posts';
+import EmailSending from "../components/admin/EmailSending";
 
 Vue.use(Router);
 
@@ -69,6 +70,11 @@ export default new Router({
                 name: 'Admin.Users.Edit',
                 path: '/admin/users/:id',
                 component: AdminUsers
+            },
+            {
+                name: 'Admin.EmailSending',
+                path: '/admin/email-sending',
+                component: EmailSending
             }
 
         ]});

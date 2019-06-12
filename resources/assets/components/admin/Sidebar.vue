@@ -49,6 +49,11 @@
             title: 'Posts',
             icon: 'library_books',
             url: '/admin/posts'
+          },
+          {
+            title: 'Email Sending',
+            icon: 'library_books',
+            url: '/admin/email-sending'
           }
         ]
       }

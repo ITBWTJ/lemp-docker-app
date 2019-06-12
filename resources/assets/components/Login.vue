@@ -5,14 +5,14 @@
         <v-form ref="form" id="login-form" v-model="valid">
           <v-text-field
                   v-model="email"
-                  label="E-mail"
+                  placeholder="E-mail"
                   :error-messages="emailErrors"
                   required
           ></v-text-field>
           <v-text-field
                   v-model="password"
                   :counter="60"
-                  label="Password"
+                  placeholder="Password"
                   :append-icon="showPass ? 'visibility' : 'visibility_off'"
                   :append-icon-cb="() => (showPass = !showPass)"
                   :type="showPass ? 'text' : 'password'"

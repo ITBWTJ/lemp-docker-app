@@ -116,7 +116,7 @@ class PostController extends ApiBaseController
         $validation->validate();
 
         if ($validation->fails()) {
-            $this->json(['success' => false, 'error' => $validation->errors()], 400);
+            return $this->json(['success' => false, 'error' => $validation->errors()], 400);
         }
 
         $post = new Post();
