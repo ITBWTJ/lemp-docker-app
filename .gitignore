@@ -11,9 +11,9 @@ yarn-error.log
 *.ntvs*
 *.njsproj
 *.sln
-/docker/sphinx/log/query.log
-/docker/sphinx/log/searchd.log
+/docker2/docker/sphinx/log/query.log
+/docker2/docker/sphinx/log/searchd.log
 /composer.lock
-/public/css/
-/public/css/style.css
-/public/js/
+/app2/public/css/
+/app2/public/css/style.css
+/app2/public/js/
