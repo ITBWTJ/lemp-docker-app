@@ -30,9 +30,8 @@ class BaseController
      * @param Request $request
      * @param Response $response
      */
-    public function __construct(Request $request, Response $response)
+    public function __construct(Response $response)
     {
-        $this->request = $request;
         $this->response = $response;
     }
 
@@ -57,8 +56,8 @@ class BaseController
         return $this->response
             ->withBody($this->getStream($body))
             ->withStatus($status)
-            ->withHeader('Content-Type', 'text/html; charset=UTF-8')
-            ->withProtocolVersion($this->request->getProtocolVersion());
+            ->withHeader('Content-Type', 'text/html; charset=UTF-8');
+//            ->withProtocolVersion($this->request->getProtocolVersion());
     }
 
     /**
@@ -71,8 +70,8 @@ class BaseController
         return $this->response
             ->withBody($this->getStream(json_encode($body, JSON_UNESCAPED_UNICODE)))
             ->withStatus($status)
-            ->withHeader('Content-Type', 'application/json;')
-            ->withProtocolVersion($this->request->getProtocolVersion());
+            ->withHeader('Content-Type', 'application/json;');
+//            ->withProtocolVersion($this->request->getProtocolVersion());
     }
 
     /**

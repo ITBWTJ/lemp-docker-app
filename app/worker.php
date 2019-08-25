@@ -26,10 +26,10 @@ while ($req = $psr7->acceptRequest()) {
 		container()->set('request', $req);
 		$kernel = $container->get('kernel');
 		$id = spl_object_id($kernel);
-		$dumper = new Dumper();
-		$dumper->setRenderer(Dumper::ERROR_LOG, new \Spiral\Debug\Renderer\ConsoleRenderer());
-		$dumper->dump('Kernel ID', Dumper::ERROR_LOG);
-		$dumper->dump($id, Dumper::ERROR_LOG);
+//		$dumper = new Dumper();
+//		$dumper->setRenderer(Dumper::ERROR_LOG, new \Spiral\Debug\Renderer\ConsoleRenderer());
+//		$dumper->dump('Request', Dumper::ERROR_LOG);
+//		$dumper->dump($req, Dumper::ERROR_LOG);
 
 		$resp = $kernel->run();
 

@@ -94,8 +94,8 @@ class Kernel
         $this->runHandler();
 
         try {
-            $group = $this->getMiddlewaresGroup();
-            $middlewares = $this->getMiddlewares($group);
+//            $group = $this->getMiddlewaresGroup();
+            $middlewares = $this->getMiddlewares();
 
             $relay = $this->builder->newInstance($middlewares);
             $response = $relay($this->request, $this->response);
@@ -154,6 +154,11 @@ class Kernel
 //        return $controller->getMiddlewares();
 		return null;
     }
+
+    private function replaseRequest()
+	{
+
+	}
 
 
 

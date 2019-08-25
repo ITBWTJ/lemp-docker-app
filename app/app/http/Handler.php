@@ -13,6 +13,7 @@ use FastRoute\Dispatcher\GroupCountBased;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Spiral\Debug\Dumper;
+use Src\Http\Request\RequestParseFactory;
 use function GuzzleHttp\Psr7\stream_for;
 
 class Handler
@@ -40,7 +41,7 @@ class Handler
 	private $router;
 
 	/**
-	 * @var \Zend\Diactoros\Request
+	 * @var Request
 	 */
 	private $request;
 
@@ -55,15 +56,24 @@ class Handler
 	 */
 	private $container;
 
+	private $requestParseFactory;
+
 
 	/**
 	 * Handler constructor.
 	 * @param GroupCountBased $router
-	 * @param Request $request
+	 * @param RequestInterface $request
 	 * @param Response $response
+	 * @param RequestParseFactory $requestParseFactory
 	 */
-	public function __construct(GroupCountBased $router, RequestInterface $request, Response $response)
+	public function __construct(
+		GroupCountBased $router,
+		RequestInterface $request,
+		Response $response,
+		RequestParseFactory $requestParseFactory
+	)
 	{
+		$this->requestParseFactory = $requestParseFactory;
 		$this->container = container();
 		$this->router = $router;
 		$this->request = $request;
@@ -116,8 +126,13 @@ class Handler
 	 */
 	public function handle(): void
 	{
-
+		$this->request = container()->get('request');
 		$this->formattingData();
+		$this->replaceRequest();
+
+		$this->request->setHandler($this->handler, $this->vars);
+		$this->container->set('request', $this->request);
+
 		try {
 			switch ($this->status) {
 				case \FastRoute\Dispatcher::NOT_FOUND:
@@ -143,7 +158,6 @@ class Handler
 	 */
 	private function buildRouteInfo(): array
 	{
-		$this->request = container()->get('request');
 		$method = $this->getMethod();
 		$uri = $this->getUri();
 		$uri = $this->clearUrl($uri);
@@ -167,12 +181,15 @@ class Handler
 	private function formattingData(): void
 	{
 		$routeInfo = $this->buildRouteInfo();
+
 		$dumper = new Dumper();
 		$dumper->setRenderer(Dumper::ERROR_LOG, new \Spiral\Debug\Renderer\ConsoleRenderer());
 		$dumper->dump($routeInfo, Dumper::ERROR_LOG);
+
 		$this->status = $routeInfo[0];
 		$this->handler = $routeInfo[1];
 		$this->vars = $routeInfo[2];
+
 	}
 
 	/**
@@ -257,5 +274,11 @@ class Handler
 		$uri = $this->getUri();
 
 		return preg_match('/api/', $uri);
+	}
+
+	private function replaceRequest()
+	{
+		$parser = $this->requestParseFactory->make($this->request);
+		$this->request = $parser->parse()->getRequest();
 	}
 }

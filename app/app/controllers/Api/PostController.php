@@ -15,7 +15,9 @@ use App\Http\Request;
 use App\Http\Response;
 use App\Repositories\PostRepository;
 use Doctrine\ORM\EntityManager;
+use Psr\Http\Message\RequestInterface;
 use Rakit\Validation\Validator;
+use Spiral\Debug\Dumper;
 use Src\Exceptions\AuthExceptions;
 use Src\Facades\Auth;
 
@@ -38,9 +40,9 @@ class PostController extends ApiBaseController
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __construct(Request $request, Response $response)
+    public function __construct(Response $response)
     {
-        parent::__construct($request, $response);
+        parent::__construct($response);
 
         $this->manager = container()->get(EntityManager::class);
         $this->postRepository = $this->manager->getRepository(Post::class);
@@ -52,10 +54,10 @@ class PostController extends ApiBaseController
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function index()
+    public function index(RequestInterface $request)
     {
         $posts = $this->postRepository
-            ->pagination($this->request->get('currentPage'), $this->request->get('perPage'))
+            ->pagination($request->get('currentPage'), $request->get('perPage'))
             ->getResult();
 
         $total = $this->postRepository
@@ -74,15 +76,15 @@ class PostController extends ApiBaseController
 
         $result = [
             'items' => $posts,
-            'currentPage' => (int)$this->request->get('currentPage'),
-            'perPage' => (int)$this->request->get('perPage'),
+            'currentPage' => (int)$request->get('currentPage'),
+            'perPage' => (int)$request->get('perPage'),
             'total' => (int)$total,
         ];
 
         return $this->json(['success' => true, 'data' => $result]);
     }
 
-    public function show($id)
+    public function show(RequestInterface $request, $id)
     {
         $manager = container()->get(EntityManager::class);
         $qb = $manager->createQueryBuilder()->select(['p.id', 'p.message', 'p.title', 'p.user_id', 'p.created_at'])->from(Post::class, 'p')->where('p.id = :id')->setParameter('id', $id);
@@ -109,10 +111,10 @@ class PostController extends ApiBaseController
     /**
      *
      */
-    public function store()
+    public function store(RequestInterface $request)
     {
         $validator = new Validator();
-        $validation = $validator->make($this->request->all(), (new Post())->getRules());
+        $validation = $validator->make($request->all(), (new Post())->getRules());
         $validation->validate();
 
         if ($validation->fails()) {
@@ -121,13 +123,13 @@ class PostController extends ApiBaseController
 
         $post = new Post();
         $manager = container()->get(EntityManager::class);
-        $user = $manager->getRepository(User::class)->find($this->request->get('user_id'));
+        $user = $manager->getRepository(User::class)->find($request->get('user_id'));
 
         if (empty($user)) {
             return $this->json(['success' => false, 'error' => ['user_id' => ['User not Found']]], 400);
         }
-        $post->setMessage($this->request->get('message'));
-        $post->setTitle($this->request->get('title'));
+        $post->setMessage($request->get('message'));
+        $post->setTitle($request->get('title'));
         $post->setUser($user);
         $this->manager->persist($post);
         $this->manager->flush();
@@ -141,10 +143,14 @@ class PostController extends ApiBaseController
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function update($id)
+    public function update(RequestInterface $request, int $id)
     {
+				$dumper = new Dumper();
+		$dumper->setRenderer(Dumper::ERROR_LOG, new \Spiral\Debug\Renderer\ConsoleRenderer());
+		$dumper->dump('PC Request', Dumper::ERROR_LOG);
+		$dumper->dump($request, Dumper::ERROR_LOG);
         $validator = new Validator();
-        $validation = $validator->make($this->request->all(), (new Post())->getRules());
+        $validation = $validator->make($request->all(), (new Post())->getRules());
         $validation->validate();
 
 
@@ -153,14 +159,14 @@ class PostController extends ApiBaseController
         }
 
         $manager = container()->get(EntityManager::class);
-        $post = $manager->getRepository(Post::class)->find($id);
+        $post = $manager->getRepository(Post::class)->find((int)$id);
 
 
         if (empty($post)) {
             return $this->json(['success' => false, 'error' => ['Post not Found']], 400);
         }
 
-        $user = $manager->getRepository(User::class)->find($this->request->get('user_id'));
+        $user = $manager->getRepository(User::class)->find($request->get('user_id'));
 
         if (empty($user)) {
             return $this->json(['success' => false, 'error' => ['user_id' => ['User not Found']]], 400);
@@ -168,8 +174,8 @@ class PostController extends ApiBaseController
 
 
         $post->setUser($user);
-        $post->setMessage($this->request->get('message'));
-        $post->setTitle($this->request->get('title'));
+        $post->setMessage($request->get('message'));
+        $post->setTitle($request->get('title'));
         $manager->persist($post);
         $manager->flush();
 

@@ -9,6 +9,7 @@
 namespace App\Controllers\Api;
 
 use App\Entities\User;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\RequestInterface as Request;
 use App\Http\Response;
 use App\Repositories\UserRepository;
@@ -30,14 +31,13 @@ class UserController extends ApiBaseController
      */
     private $userRepository;
 
-    /**
-     * UserController constructor.
-     * @param Request $request
-     * @param Response $response
-     */
-    public function __construct(Request $request, Response $response)
+	/**
+	 * UserController constructor.
+	 * @param Response $response
+	 */
+    public function __construct(Response $response)
     {
-        parent::__construct($request, $response);
+        parent::__construct($response);
 
         $this->manager = container()->get(EntityManager::class);
         $this->userRepository = $this->manager->getRepository(User::class);
@@ -49,11 +49,11 @@ class UserController extends ApiBaseController
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function index()
+    public function index(RequestInterface $request)
     {
         try {
             $users = $this->userRepository
-                ->pagination($this->request->get('currentPage'), $this->request->get('perPage'))
+                ->pagination($request->get('currentPage'), $request->get('perPage'))
                 ->getResult();
 
             $total = $this->userRepository
@@ -76,8 +76,8 @@ class UserController extends ApiBaseController
 
         $result = [
             'items' => $data,
-            'perPage' => (int)$this->request->get('perPage'),
-            'currentPage' => (int)$this->request->get('currentPage'),
+            'perPage' => (int)$request->get('perPage'),
+            'currentPage' => (int)$request->get('currentPage'),
             'total' => (int)$total,
         ];
 
@@ -92,7 +92,7 @@ class UserController extends ApiBaseController
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function show($id)
+    public function show(RequestInterface $request, $id)
     {
         $manager = container()->get(EntityManager::class);
         $qb = $manager->createQueryBuilder()->select(['u.id', 'u.name', 'u.email'])->from(User::class, 'u')->where('u.id = :id')->setParameter('id', $id);
@@ -121,20 +121,20 @@ class UserController extends ApiBaseController
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function store()
+    public function store(RequestInterface $request)
     {
         $manager = container()->get(EntityManager::class);
         $user = new User();
 
-        if (($this->request->has('name') && $this->request->name != false)
-        && ($this->request->has('email') && $this->request->get('email') != false)
-        && ($this->request->has('password') && strlen($this->request->get('password')) > 7)) {
+        if (($request->has('name') && $request->name != false)
+        && ($request->has('email') && $request->get('email') != false)
+        && ($request->has('password') && strlen($request->get('password')) > 7)) {
 
-            $password = Bcrypt::hash($this->request->get('password'));
+            $password = Bcrypt::hash($request->get('password'));
 
-            $user->setName($this->request->get('name'));
+            $user->setName($request->get('name'));
             $user->setPassword($password);
-            $user->setEmail($this->request->get('email'));
+            $user->setEmail($request->get('email'));
 
             $manager->persist($user);
             $manager->flush();
@@ -154,7 +154,7 @@ class UserController extends ApiBaseController
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function update($id)
+    public function update(RequestInterface $request, $id)
     {
         $manager = container()->get(EntityManager::class);
         $user = $manager->getRepository(User::class)->find($id);
@@ -164,9 +164,9 @@ class UserController extends ApiBaseController
             return $this->json(['success' => false, 'error' => ['Not Found']], 404);
         }
 
-        if (!empty($this->request->get('name'))) {
+        if (!empty($request->get('name'))) {
 
-            $user->setName($this->request->get('name'));
+            $user->setName($request->get('name'));
             $manager->persist($user);
             $manager->flush();
 
@@ -185,7 +185,7 @@ class UserController extends ApiBaseController
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function delete($id)
+    public function delete(RequestInterface $request, $id)
     {
         $manager = container()->get(EntityManager::class);
         $user = $manager->getRepository(User::class)->find($id);
@@ -202,9 +202,9 @@ class UserController extends ApiBaseController
         return $this->json(['success' => false], 400);
     }
 
-    public function getUserByToken()
+    public function getUserByToken(RequestInterface $request)
     {
-        $token = $this->request->get('token');
+        $token = $request->get('token');
 
         if (empty($token)) {
             return $this->json(['error' => ['token' => ['Токен отсутствует']]], 401);

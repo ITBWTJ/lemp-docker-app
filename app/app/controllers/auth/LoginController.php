@@ -15,6 +15,7 @@ use App\Http\Request;
 use App\Http\Response;
 use App\Repositories\UserRepository;
 use Doctrine\ORM\EntityManager;
+use Psr\Http\Message\RequestInterface;
 use Rakit\Validation\Validator;
 use Src\Facades\Bcrypt;
 use Src\Facades\JWTToken;
@@ -30,10 +31,10 @@ class LoginController extends BaseController
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function login()
+    public function login(RequestInterface $request)
     {
         $validator = new Validator();
-        $validation = $validator->make($this->request->all(), ['email' => 'required|email', 'password' => 'required|min:8|max:60']);
+        $validation = $validator->make($request->all(), ['email' => 'required|email', 'password' => 'required|min:8|max:60']);
         $validation->validate();
 
         if ($validation->fails()) {
@@ -41,13 +42,13 @@ class LoginController extends BaseController
         }
 
         $manager = container()->get(EntityManager::class);
-        $user = $manager->getRepository(User::class)->getByEmail($this->request->get('email'))->first();
+        $user = $manager->getRepository(User::class)->getByEmail($request->get('email'))->first();
 
         if (empty($user)) {
-            return $this->json(['error' => ['email' => ["User by email". $this->request->get('email') ." not found"]]], 400);
+            return $this->json(['error' => ['email' => ["User by email". $request->get('email') ." not found"]]], 400);
         }
 
-        if (!Bcrypt::verify($this->request->get('password'), $user['password'])) {
+        if (!Bcrypt::verify($request->get('password'), $user['password'])) {
             return $this->json(['error' => ["Password wrong"]], 400);
         }
 

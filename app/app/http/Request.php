@@ -67,6 +67,14 @@ class Request extends \GuzzleHttp\Psr7\Request
         $this->args = $args;
     }
 
+	/**
+	 * @param array $args
+	 */
+    public function setArgs($args = []): void
+	{
+		$this->args = $args;
+	}
+
     /**
      * @return mixed
      */

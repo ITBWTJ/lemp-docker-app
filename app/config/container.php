@@ -21,7 +21,7 @@ return [
         return new router($collector->getData());
     },
     'handler' => function (ContainerInterface $c) {
-        return new \App\Http\Handler($c->get('router'), $c->get('request'), $c->get('response'));
+        return new \App\Http\Handler($c->get('router'), $c->get('request'), $c->get('response'), $c->get(\Src\Http\Request\RequestParseFactory::class));
     },
     'kernel' => function (ContainerInterface $c) {
         return new \App\Kernel($c->get(RelayBuilder::class), $c->get('handler'), $c->get(MiddlewareMediator::class));
@@ -32,27 +32,27 @@ return [
 //    },
     'response' => new \App\Http\Response(),
     'stream' => new \App\Http\Stream(),
-    HomeController::class => function(ContainerInterface $c) {
-        return new HomeController($c->get('request'), $c->get('response'));
-    },
-    AdminController::class => function(ContainerInterface $c) {
-        return new AdminController($c->get('request'), $c->get('response'));
-    },
-    UserController::class => function(ContainerInterface $c) {
-        return new UserController($c->get('request'), $c->get('response'));
-    },
-    LoginController::class => function(ContainerInterface $c) {
-        return new LoginController($c->get('request'), $c->get('response'));
-    },
-    RegistrationController::class => function(ContainerInterface $c) {
-        return new RegistrationController($c->get('request'), $c->get('response'));
-    },
-    PostController::class => function(ContainerInterface $c) {
-        return new PostController($c->get('request'), $c->get('response'));
-    },
-    TestController::class => function(ContainerInterface $c) {
-        return new TestController($c->get('request'), $c->get('response'));
-    },
+//    HomeController::class => function(ContainerInterface $c) {
+//        return new HomeController($c->get('request'), $c->get('response'));
+//    },
+//    AdminController::class => function(ContainerInterface $c) {
+//        return new AdminController($c->get('request'), $c->get('response'));
+//    },
+//    UserController::class => function(ContainerInterface $c) {
+//        return new UserController($c->get('request'), $c->get('response'));
+//    },
+//    LoginController::class => function(ContainerInterface $c) {
+//        return new LoginController($c->get('request'), $c->get('response'));
+//    },
+//    RegistrationController::class => function(ContainerInterface $c) {
+//        return new RegistrationController($c->get('request'), $c->get('response'));
+//    },
+//    PostController::class => function(ContainerInterface $c) {
+//        return new PostController($c->get('request'), $c->get('response'));
+//    },
+//    TestController::class => function(ContainerInterface $c) {
+//        return new TestController($c->get('request'), $c->get('response'));
+//    },
     MiddlewareMediator::class => function (ContainerInterface $c) {
         return new MiddlewareMediator($c->get(MiddlewareContainer::class));
     },

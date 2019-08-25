@@ -48,9 +48,9 @@ class HomeController extends BaseController
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __construct(Request $request, Response $response)
+    public function __construct(Response $response)
     {
-        parent::__construct($request, $response);
+        parent::__construct($response);
 
         $this->manager = container()->get(EntityManager::class);
         $this->postRep = $this->manager->getRepository(Post::class);
