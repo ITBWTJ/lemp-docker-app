@@ -10,6 +10,7 @@ namespace App\Entities;
 
 use App\Repositories\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use
 
 /**
  * @Entity(repositoryClass="App\Repositories\UserRepository")
