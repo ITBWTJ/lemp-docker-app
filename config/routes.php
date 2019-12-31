@@ -39,6 +39,17 @@ $collection->addGroup('/api', function (\FastRoute\RouteCollector $c) {
     $c->addRoute('PUT', '/posts/{id:\d+}', 'App\Controllers\Api\PostController@update');
 
     $c->addRoute('DELETE', '/posts/{id:\d+}', 'App\Controllers\Api\PostController@delete');
+
+    // POST REST API
+    $c->addRoute('GET', '/sms', 'App\Controllers\Api\SmsSendingController@index');
+
+    $c->addRoute('GET', '/sms/{id:\d+}', 'App\Controllers\Api\SmsSendingController@show');
+
+    $c->addRoute('POST', '/sms', 'App\Controllers\Api\SmsSendingController@store');
+
+    $c->addRoute('PUT', '/sms/{id:\d+}', 'App\Controllers\Api\SmsSendingController@update');
+
+    $c->addRoute('DELETE', '/sms/{id:\d+}', 'App\Controllers\Api\SmsSendingController@delete');
 });
 
 

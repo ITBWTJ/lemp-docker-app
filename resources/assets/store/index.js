@@ -8,7 +8,8 @@ export default new Vuex.Store({
     token: localStorage.getItem('token') || null,
     user: null,
     users: [],
-    posts: []
+    posts: [],
+    sms: [],
   },
   actions: {
     setToken: (token) => {
@@ -17,7 +18,7 @@ export default new Vuex.Store({
     },
     setPosts: posts => {
       this.state.posts = posts;
-    }
+    },
   },
   mutations: {
     setToken: (state, token) => {
@@ -37,6 +38,9 @@ export default new Vuex.Store({
     },
     setPosts: (state, posts) => {
       state.posts = posts;
-    }
+    },
+    setSms: (state, items) => {
+      state.sms = items;
+    },
   }
 })

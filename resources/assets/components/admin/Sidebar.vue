@@ -51,9 +51,9 @@
             url: '/admin/posts'
           },
           {
-            title: 'Email Sending',
+            title: 'Sms',
             icon: 'library_books',
-            url: '/admin/email-sending'
+            url: '/admin/sms'
           }
         ]
       }

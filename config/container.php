@@ -30,6 +30,9 @@ return [
     'request' => function(ContainerInterface $c) {
         return new \App\Http\Request($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI'], \getallheaders(), $c->get('stream'), $_SERVER['SERVER_PROTOCOL']);
     },
+    \App\Http\Request::class => function (ContainerInterface $c) {
+        return $c->get('request');
+    },
     'response' => new \App\Http\Response(),
     'stream' => new \App\Http\Stream(),
     HomeController::class => function(ContainerInterface $c) {
